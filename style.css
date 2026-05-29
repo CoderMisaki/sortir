@@ -1438,6 +1438,7 @@ button:focus-visible {
 .tutorial-overlay {
   position: absolute;
   z-index: 18;
+  pointer-events: none;
   left: 14px;
   top: 14px;
   width: min(280px, calc(100% - 28px));
