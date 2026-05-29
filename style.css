@@ -12,8 +12,8 @@
   --yellow: #facc15;
   --purple: #a78bfa;
   --orange: #fb923c;
-  --shadow: 0 20px 48px rgba(0, 0, 0, 0.3);
-  --radius: 20px;
+  --shadow: 0 16px 34px rgba(0, 0, 0, 0.26);
+  --radius: 18px;
 }
 
 :root.light {
@@ -23,7 +23,7 @@
   --text: #102033;
   --muted: #53657a;
   --line: rgba(15, 23, 42, 0.14);
-  --shadow: 0 18px 40px rgba(44, 76, 110, 0.16);
+  --shadow: 0 14px 30px rgba(44, 76, 110, 0.14);
 }
 
 * {
@@ -36,6 +36,7 @@ body {
 }
 
 body {
+  min-height: 100dvh;
   margin: 0;
   color: var(--text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -52,8 +53,12 @@ button {
 
 .app-shell {
   width: min(1120px, calc(100% - 24px));
+  min-height: 100dvh;
   margin: 0 auto;
-  padding: 16px 0 30px;
+  padding: 10px 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 8px;
 }
 
 .hero-hud,
@@ -70,8 +75,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 18px;
+  gap: 12px;
+  min-height: 0;
+  padding: 12px 14px;
   border-radius: var(--radius);
   position: relative;
   overflow: hidden;
@@ -87,11 +93,11 @@ button {
 }
 
 .eyebrow {
-  margin: 0 0 6px;
+  margin: 0 0 4px;
   color: var(--cyan);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -102,17 +108,21 @@ p {
 }
 
 h1 {
-  margin-bottom: 6px;
-  font-size: clamp(1.65rem, 4vw, 3.45rem);
-  line-height: 0.92;
-  letter-spacing: -0.06em;
+  margin-bottom: 4px;
+  font-size: clamp(1.45rem, 3vw, 2.45rem);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
 }
 
 .subtitle,
 .modal-card p,
 .hint {
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.86rem;
+}
+
+.subtitle {
+  margin-bottom: 0;
 }
 
 .hud-actions,
@@ -141,17 +151,17 @@ h1 {
 }
 
 .icon-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.08);
 }
 
 .primary-btn,
 .secondary-btn {
-  min-height: 40px;
+  min-height: 36px;
   border-radius: 999px;
-  padding: 0 14px;
+  padding: 0 12px;
   font-weight: 800;
 }
 
@@ -173,16 +183,16 @@ h1 {
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 8px;
-  padding: 10px;
-  border-radius: 18px;
-  margin: 12px 0;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 16px;
+  margin: 0;
 }
 
 .stat-card {
-  min-height: 70px;
-  padding: 11px;
-  border-radius: 14px;
+  min-height: 56px;
+  padding: 8px 10px;
+  border-radius: 12px;
   border: 1px solid var(--line);
   background: linear-gradient(160deg, rgba(34, 211, 238, 0.12), rgba(255, 255, 255, 0.03));
 }
@@ -190,21 +200,24 @@ h1 {
 .stat-card span {
   display: block;
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.075em;
 }
 
 .stat-card strong {
   display: block;
-  margin-top: 6px;
-  font-size: clamp(1.06rem, 2.3vw, 1.55rem);
+  margin-top: 4px;
+  font-size: clamp(0.98rem, 1.8vw, 1.32rem);
 }
 
 .sorting-machine {
-  padding: 12px;
-  border-radius: 24px;
+  min-height: 0;
+  padding: 10px;
+  border-radius: 22px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
 .machine-topbar {
@@ -212,16 +225,26 @@ h1 {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  padding: 6px 4px 12px;
+  min-height: 0;
+  padding: 2px 2px 8px;
+  font-size: 0.9rem;
 }
 
 .machine-topbar > div:first-child {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
+}
+
+.machine-topbar strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .live-dot {
+  flex: 0 0 auto;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -230,19 +253,20 @@ h1 {
 }
 
 .mode-pill {
-  padding: 6px 10px;
+  flex: 0 0 auto;
+  padding: 5px 9px;
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--cyan);
   font-weight: 900;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
 }
 
 .game-stage {
   position: relative;
-  height: clamp(300px, 43vw, 455px);
-  min-height: 300px;
-  border-radius: 20px;
+  height: clamp(250px, 44dvh, 410px);
+  min-height: 0;
+  border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--line);
   background:
@@ -274,8 +298,8 @@ h1 {
 .miss-zone {
   position: absolute;
   z-index: 4;
-  top: 50px;
-  bottom: 78px;
+  top: 44px;
+  bottom: 62px;
   pointer-events: none;
 }
 
@@ -289,7 +313,7 @@ h1 {
 .sensor-line span,
 .miss-zone span {
   position: absolute;
-  top: -24px;
+  top: -22px;
   left: 50%;
   transform: translateX(-50%);
   color: var(--muted);
@@ -329,7 +353,7 @@ h1 {
   left: 5%;
   right: 6%;
   top: 34%;
-  height: 88px;
+  height: clamp(66px, 10dvh, 86px);
   z-index: 5;
   transform: skewX(-8deg);
 }
@@ -392,8 +416,8 @@ h1 {
 .package {
   position: absolute;
   z-index: 10;
-  width: clamp(60px, 7.5vw, 90px);
-  height: clamp(46px, 5.7vw, 66px);
+  width: clamp(54px, 7vw, 82px);
+  height: clamp(42px, 5.3vw, 60px);
   left: 0;
   top: 0;
   transform: translate3d(-140px, 0, 0);
@@ -470,8 +494,8 @@ h1 {
   z-index: 2;
   left: 0;
   right: 0;
-  bottom: 18px;
-  height: 108px;
+  bottom: 14px;
+  height: clamp(78px, 16dvh, 104px);
   border-top: 1px solid rgba(34, 211, 238, 0.16);
   background: linear-gradient(180deg, rgba(34, 211, 238, 0.05), rgba(34, 211, 238, 0.11));
   clip-path: polygon(7% 0, 94% 0, 100% 100%, 0 100%);
@@ -509,20 +533,21 @@ h1 {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 8px;
-  margin-top: 10px;
+  min-height: 0;
+  margin-top: 8px;
 }
 
 .dest-bin {
   position: relative;
-  min-height: 102px;
-  padding: 12px 10px 10px;
+  min-height: 78px;
+  padding: 10px 8px 8px;
   border: 1px solid var(--line);
-  border-radius: 18px 18px 14px 14px;
+  border-radius: 16px 16px 12px 12px;
   color: var(--text);
   cursor: pointer;
   overflow: hidden;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
-  box-shadow: inset 0 -12px 0 rgba(0, 0, 0, 0.14), 0 10px 18px rgba(0, 0, 0, 0.16);
+  box-shadow: inset 0 -10px 0 rgba(0, 0, 0, 0.14), 0 8px 14px rgba(0, 0, 0, 0.14);
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, filter 0.18s ease;
 }
 
@@ -530,7 +555,7 @@ h1 {
   content: "";
   position: absolute;
   inset: 0 8px auto;
-  height: 13px;
+  height: 11px;
   border-radius: 0 0 999px 999px;
   background: rgba(255, 255, 255, 0.18);
 }
@@ -544,12 +569,14 @@ h1 {
 
 .dest-bin strong {
   display: block;
-  margin: 22px 0 4px;
-  font-size: 0.92rem;
+  margin: 18px 0 3px;
+  font-size: 0.82rem;
 }
 
 .dest-bin small {
   color: rgba(236, 254, 255, 0.76);
+  font-size: 0.68rem;
+  line-height: 1.15;
 }
 
 :root.light .dest-bin small {
@@ -558,15 +585,16 @@ h1 {
 
 .shortcut {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 24px;
-  height: 24px;
+  top: 8px;
+  left: 8px;
+  width: 22px;
+  height: 22px;
   display: inline-grid;
   place-items: center;
-  border-radius: 8px;
+  border-radius: 7px;
   background: rgba(2, 6, 23, 0.38);
   color: #fff;
+  font-size: 0.78rem;
   font-weight: 1000;
 }
 
@@ -574,8 +602,8 @@ h1 {
   position: absolute;
   left: 10px;
   right: 10px;
-  bottom: 9px;
-  height: 12px;
+  bottom: 8px;
+  height: 10px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.22);
   filter: blur(2px);
@@ -606,15 +634,18 @@ h1 {
   z-index: 100;
   display: grid;
   place-items: center;
-  padding: 11px;
+  padding: 12px;
   background: rgba(2, 6, 23, 0.72);
   backdrop-filter: blur(12px);
+  overflow-y: auto;
 }
 
 .modal-card {
   width: min(560px, 100%);
-  padding: 22px;
-  border-radius: 24px;
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 22px;
 }
 
 .modal-card.small {
@@ -624,15 +655,15 @@ h1 {
 .mode-options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin: 20px 0;
+  gap: 10px;
+  margin: 16px 0;
 }
 
 .mode-card {
-  min-height: 106px;
-  padding: 16px;
+  min-height: 92px;
+  padding: 14px;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 16px;
   color: var(--text);
   cursor: pointer;
   text-align: left;
@@ -643,7 +674,7 @@ h1 {
 .mode-card strong {
   display: block;
   margin-bottom: 6px;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
 }
 
 .mode-card span {
@@ -654,12 +685,12 @@ h1 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
-  margin: 18px 0 22px;
+  margin: 16px 0 20px;
 }
 
 .result-card {
-  padding: 11px;
-  border-radius: 16px;
+  padding: 10px;
+  border-radius: 14px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.07);
 }
@@ -672,8 +703,8 @@ h1 {
 
 .result-card strong {
   display: block;
-  margin-top: 6px;
-  font-size: 1.15rem;
+  margin-top: 5px;
+  font-size: 1.08rem;
 }
 
 .hidden {
@@ -713,6 +744,10 @@ h1 {
 }
 
 @media (max-width: 980px) {
+  .app-shell {
+    width: min(100% - 18px, 1120px);
+  }
+
   .stats-grid,
   .destination-panel {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -721,24 +756,38 @@ h1 {
   .hero-hud {
     align-items: flex-start;
     flex-direction: column;
+    gap: 8px;
   }
 
   .hud-actions {
     width: 100%;
     justify-content: flex-start;
   }
+
+  .game-stage {
+    height: clamp(230px, 38dvh, 360px);
+  }
+
+  .dest-bin {
+    min-height: 72px;
+  }
 }
 
 @media (max-width: 640px) {
   .app-shell {
-    width: min(100% - 18px, 1220px);
-    padding-top: 10px;
+    width: min(100% - 14px, 1120px);
+    padding: 7px 0;
+    gap: 6px;
   }
 
   .hero-hud,
   .sorting-machine {
-    border-radius: 18px;
-    padding: 11px;
+    border-radius: 16px;
+    padding: 9px;
+  }
+
+  .hero-hud {
+    gap: 7px;
   }
 
   .stats-grid,
@@ -749,65 +798,79 @@ h1 {
   }
 
   .stats-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-    padding: 8px;
+    gap: 5px;
+    padding: 6px;
   }
 
   .stat-card {
-    min-height: 54px;
-    padding: 8px;
+    min-height: 44px;
+    padding: 6px 8px;
   }
 
   .stat-card span {
-    font-size: 0.56rem;
-    letter-spacing: 0.06em;
+    font-size: 0.54rem;
+    letter-spacing: 0.055em;
   }
 
   .stat-card strong {
-    margin-top: 4px;
-    font-size: clamp(0.92rem, 4vw, 1.12rem);
+    margin-top: 2px;
+    font-size: clamp(0.86rem, 3.5vw, 1.02rem);
   }
 
   .machine-topbar {
     align-items: flex-start;
     flex-direction: column;
-    font-size: 0.82rem;
+    gap: 5px;
+    padding-bottom: 7px;
+    font-size: 0.78rem;
+  }
+
+  .machine-topbar strong {
+    white-space: normal;
   }
 
   .game-stage {
-    height: clamp(265px, 72vw, 330px);
-    min-height: 265px;
+    height: clamp(200px, 28dvh, 260px);
+  }
+
+  .spawn-bay,
+  .sensor-line,
+  .miss-zone {
+    top: 38px;
+    bottom: 48px;
   }
 
   .conveyor-wrap {
     left: 3%;
     right: 3%;
     top: 32%;
+    height: clamp(58px, 8.5dvh, 72px);
+  }
+
+  .destination-panel {
+    gap: 6px;
+    margin-top: 7px;
   }
 
   .dest-bin {
-    min-height: 86px;
-    padding: 10px 8px 8px;
+    min-height: 64px;
+    padding: 8px 7px 7px;
+    border-radius: 13px;
   }
 
   .dest-bin strong {
-    margin-top: 18px;
-    font-size: 0.82rem;
+    margin-top: 16px;
+    font-size: 0.78rem;
   }
 
   .dest-bin small {
-    font-size: 0.68rem;
+    font-size: 0.64rem;
   }
 
   .shortcut {
-    width: 21px;
-    height: 21px;
-    font-size: 0.72rem;
-  }
-
-  .modal {
-    overflow-y: auto;
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
   }
 
   .modal-card {
@@ -815,117 +878,70 @@ h1 {
   }
 }
 
-
 @media (max-width: 480px) {
   .app-shell {
-    width: min(100% - 12px, 1120px);
-    padding: 6px 0 18px;
+    width: min(100% - 10px, 1120px);
+    padding: 5px 0;
   }
 
   .hero-hud,
   .sorting-machine {
     border-radius: 14px;
-    padding: 9px;
+    padding: 8px;
   }
 
   h1 {
-    font-size: clamp(1.38rem, 8vw, 1.85rem);
+    font-size: clamp(1.28rem, 7vw, 1.75rem);
+  }
+
+  .eyebrow {
+    font-size: 0.54rem;
   }
 
   .subtitle,
   .modal-card p,
   .hint {
-    font-size: 0.78rem;
+    font-size: 0.74rem;
   }
 
   .icon-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    min-height: 34px;
   }
 
   .game-stage {
-    height: clamp(240px, 70vw, 285px);
-    min-height: 240px;
+    height: clamp(190px, 27dvh, 236px);
     border-radius: 14px;
   }
 
-  .spawn-bay,
-  .sensor-line,
-  .miss-zone {
-    top: 38px;
-    bottom: 58px;
-  }
-
-  .spawn-bay span,
-  .sensor-line span,
-  .miss-zone span {
-    font-size: 0.48rem;
-    letter-spacing: 0.1em;
-  }
-
-  .conveyor-wrap {
-    height: 68px;
-    top: 32%;
-  }
-
-  .rail {
-    height: 7px;
-  }
-
   .package {
-    width: clamp(50px, 15vw, 60px);
-    height: clamp(38px, 11.5vw, 46px);
+    width: clamp(50px, 14vw, 58px);
+    height: clamp(38px, 10.8vw, 44px);
   }
 
   .package-front span {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
   }
 
   .package-front small {
-    font-size: 0.42rem;
+    font-size: 0.45rem;
   }
 
   .drop-guide {
-    bottom: 12px;
-    height: 78px;
-  }
-
-  .destination-panel {
-    gap: 6px;
+    height: 76px;
   }
 
   .dest-bin {
-    min-height: 74px;
-    border-radius: 14px 14px 12px 12px;
-  }
-
-  .dest-bin strong {
-    font-size: 0.76rem;
-  }
-
-  .dest-bin small {
-    font-size: 0.62rem;
-    line-height: 1.15;
-  }
-
-  .mode-options,
-  .result-grid {
-    gap: 8px;
+    min-height: 62px;
   }
 
   .mode-card {
-    min-height: 92px;
-    padding: 12px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
+    min-height: 78px;
+    padding: 11px;
   }
 }
