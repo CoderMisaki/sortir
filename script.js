@@ -519,7 +519,7 @@ const Game = {
     GameState.lastFrameTime = performance.now();
     DOM.pauseModal.classList.toggle('hidden', !GameState.isPaused);
     DOM.stage.classList.toggle('paused', GameState.isPaused);
-    DOM.pauseBtn.innerHTML = GameState.isPaused ? 'Resume <span>P</span>' : 'Pause <span>P</span>';
+    DOM.pauseBtn.textContent = GameState.isPaused ? 'Resume' : 'Pause';
     DOM.status.textContent = GameState.isPaused ? 'SCAN: PAUSED → TARGET: HOLD' : 'SCAN: LIVE FEED → TARGET: --';
   },
 
