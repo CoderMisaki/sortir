@@ -167,6 +167,8 @@ const AudioFx = {
 
 const Game = {
   rafId: null,
+  layoutRafId: null,
+  layoutSettleTimeoutId: null,
   eventsBound: false,
 
   init() {
@@ -194,7 +196,8 @@ const Game = {
     DOM.soundBtn.addEventListener('click', () => { AudioFx.toggle(); AudioFx.click(); });
     DOM.bins.forEach(bin => bin.addEventListener('click', () => this.submitSort(bin.dataset.dest)));
     document.addEventListener('keydown', event => this.handleKeyboard(event));
-    window.addEventListener('resize', () => this.updateLayoutMetrics());
+    window.addEventListener('resize', () => this.scheduleLayoutRefresh());
+    window.addEventListener('orientationchange', () => this.scheduleLayoutRefresh({ settle: true }));
   },
 
   startGame(mode) {
@@ -427,19 +430,54 @@ const Game = {
     };
   },
 
-  updateLayoutMetrics() {
+  scheduleLayoutRefresh({ settle = false } = {}) {
+    if (this.layoutRafId) cancelAnimationFrame(this.layoutRafId);
+    this.layoutRafId = requestAnimationFrame(() => {
+      this.layoutRafId = null;
+      this.updateLayoutMetrics({ preserveProgress: true });
+    });
+
+    if (settle) {
+      if (this.layoutSettleTimeoutId) window.clearTimeout(this.layoutSettleTimeoutId);
+      this.layoutSettleTimeoutId = window.setTimeout(() => {
+        this.layoutSettleTimeoutId = null;
+        this.updateLayoutMetrics({ preserveProgress: true });
+      }, 180);
+    }
+  },
+
+  updateLayoutMetrics({ preserveProgress = false } = {}) {
+    const previousStartX = GameState.conveyorStartX;
+    const previousEndX = GameState.conveyorEndX;
+    const previousTravel = previousEndX - previousStartX;
+    const packageProgress = previousTravel > 0
+      ? (GameState.packageX - previousStartX) / previousTravel
+      : 0;
+
     const stageRect = DOM.stage.getBoundingClientRect();
     const beltRect = DOM.conveyorWrap.getBoundingClientRect();
     const packageHeight = DOM.packageBox.offsetHeight || 72;
+    GameState.packageWidth = DOM.packageBox.offsetWidth || GameState.packageWidth || 96;
     GameState.conveyorStartX = beltRect.left - stageRect.left + 8;
     GameState.conveyorEndX = beltRect.right - stageRect.left - 12;
     GameState.dropTriggerX = GameState.conveyorStartX + (GameState.conveyorEndX - GameState.conveyorStartX) * 0.66;
     GameState.missZoneX = GameState.conveyorEndX - GameState.packageWidth * 0.56;
-    GameState.packageY = GameState.isDropping ? GameState.packageY : (beltRect.top - stageRect.top + beltRect.height * 0.26 - packageHeight * 0.82);
+
+    if (!GameState.isDropping) {
+      GameState.packageY = beltRect.top - stageRect.top + beltRect.height * 0.26 - packageHeight * 0.82;
+      if (preserveProgress && GameState.currentPackage) {
+        const nextTravel = GameState.conveyorEndX - GameState.conveyorStartX;
+        GameState.packageX = GameState.conveyorStartX + packageProgress * nextTravel;
+      }
+    }
 
     DOM.sensorLine.style.left = `${GameState.dropTriggerX}px`;
     DOM.missZone.style.left = `${GameState.missZoneX}px`;
     DOM.missZone.style.right = 'auto';
+
+    if (GameState.isRunning && GameState.currentPackage && !GameState.isDropping) {
+      this.renderPackage();
+    }
   },
 
   getConveyorPackageY() {
