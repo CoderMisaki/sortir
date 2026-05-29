@@ -177,7 +177,9 @@ const AudioFx = {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return;
     if (!this.ctx) this.ctx = new AudioContext();
-    if (this.ctx.state === 'suspended') this.ctx.resume();
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume().catch(() => { /* Browser may block audio until a user gesture. */ });
+    }
   },
   click() { this.tone(440, 'triangle', 0.05); },
   successPerfect() { this.tone(740, 'triangle', 0.08, 0, 0.045); this.tone(988, 'sine', 0.13, 0.055, 0.038); },
@@ -593,14 +595,24 @@ const Game = {
 
   handleKeyboard(event) {
     const keyMap = { '1': 'A', '2': 'B', '3': 'C', '4': 'EXP', '5': 'FRG', '6': 'RET' };
+    const shortcutKey = keyMap[event.key] || event.key.toLowerCase() === 'p';
+    if (!shortcutKey) return;
+
+    event.preventDefault();
+    if (this.isModalOpen()) return;
+
     if (keyMap[event.key]) {
-      event.preventDefault();
       this.submitSort(keyMap[event.key]);
+      return;
     }
+
     if (event.key.toLowerCase() === 'p' && GameState.isRunning) {
-      event.preventDefault();
       this.togglePause();
     }
+  },
+
+  isModalOpen() {
+    return [DOM.startModal, DOM.pauseModal, DOM.gameOverModal].some(modal => modal && !modal.classList.contains('hidden'));
   },
 
   togglePause(forcePaused = !GameState.isPaused) {
@@ -649,14 +661,19 @@ const Game = {
     const best = Storage.getBest(GameState.mode);
     const achievements = this.getAchievements(grade, accuracy);
     DOM.resultGrid.parentElement?.querySelector('.achievement-chips')?.remove();
-    DOM.reportHero.innerHTML = `
-      <div class="grade-badge grade-${grade.toLowerCase()}">${grade}</div>
-      <div>
-        <span>${GameState.wasNewBest ? 'NEW HIGH SCORE' : 'SHIFT COMPLETE'}</span>
-        <strong>${this.format(GameState.score)}</strong>
-        <small>Best ${this.format(best)} · Accuracy ${accuracy}%</small>
-      </div>
-    `;
+    DOM.reportHero.replaceChildren();
+    const gradeBadge = document.createElement('div');
+    gradeBadge.className = `grade-badge grade-${grade.toLowerCase()}`;
+    gradeBadge.textContent = grade;
+    const reportSummary = document.createElement('div');
+    const reportStatus = document.createElement('span');
+    reportStatus.textContent = GameState.wasNewBest ? 'NEW HIGH SCORE' : 'SHIFT COMPLETE';
+    const reportScore = document.createElement('strong');
+    reportScore.textContent = this.format(GameState.score);
+    const reportMeta = document.createElement('small');
+    reportMeta.textContent = `Best ${this.format(best)} · Accuracy ${accuracy}%`;
+    reportSummary.append(reportStatus, reportScore, reportMeta);
+    DOM.reportHero.append(gradeBadge, reportSummary);
     const rows = [
       ['Final Score', this.format(GameState.score)],
       ['Accuracy', `${accuracy}%`],
@@ -671,7 +688,11 @@ const Game = {
     rows.forEach(([label, value]) => {
       const card = document.createElement('div');
       card.className = 'result-card';
-      card.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+      const labelEl = document.createElement('span');
+      labelEl.textContent = label;
+      const valueEl = document.createElement('strong');
+      valueEl.textContent = value;
+      card.append(labelEl, valueEl);
       DOM.resultGrid.appendChild(card);
     });
     const chips = document.createElement('div');
@@ -688,7 +709,7 @@ const Game = {
     DOM.score.textContent = this.format(GameState.score);
     if (includeBest) DOM.best.textContent = this.format(Storage.getBest(GameState.mode));
     DOM.level.textContent = GameState.mode === 'timeAttack' ? `${Math.ceil(GameState.timeAttackLeft)}s` : GameState.level;
-    DOM.lives.innerHTML = this.renderLives();
+    this.renderLives();
     DOM.lives.setAttribute('aria-label', GameState.mode === 'classic' ? `${Math.max(0, GameState.lives)} lives` : 'Time attack unlimited lives');
     DOM.combo.textContent = `x${GameState.combo}`;
     DOM.accuracy.textContent = `${this.getAccuracy()}%`;
@@ -822,10 +843,13 @@ const Game = {
   },
 
   renderLives() {
-    if (GameState.mode !== 'classic') {
-      return '<span class="time-icon"></span><span class="time-icon"></span><span class="time-icon"></span>';
+    DOM.lives.replaceChildren();
+    for (let index = 0; index < GameConfig.startingLives; index += 1) {
+      const indicator = document.createElement('span');
+      if (GameState.mode !== 'classic') indicator.className = 'time-icon';
+      else if (index >= GameState.lives) indicator.className = 'lost';
+      DOM.lives.appendChild(indicator);
     }
-    return Array.from({ length: GameConfig.startingLives }, (_, index) => `<span class="${index < GameState.lives ? '' : 'lost'}"></span>`).join('');
   },
 
   getGrade(accuracy) {
