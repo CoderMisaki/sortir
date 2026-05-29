@@ -94,22 +94,6 @@ button:focus-visible {
   min-width: 0;
 }
 
-.brand-mark {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  border: 1px solid #35516d;
-  background:
-    linear-gradient(135deg, rgba(245, 158, 11, 0.92), rgba(180, 83, 9, 0.9)),
-    #111827;
-  color: #111827;
-  font-weight: 950;
-  letter-spacing: -0.08em;
-  border-radius: 10px;
-  box-shadow: inset 0 -8px 18px rgba(0, 0, 0, 0.22);
-}
 
 .hero-hud h1 {
   margin: 0;
@@ -162,14 +146,6 @@ button:focus-visible {
   letter-spacing: 0.04em;
 }
 
-.primary-btn span {
-  display: inline-grid;
-  place-items: center;
-  min-width: 20px;
-  margin-left: 4px;
-  border-radius: 5px;
-  background: rgba(17, 24, 39, 0.22);
-}
 
 .secondary-btn {
   padding: 0 13px;
@@ -965,7 +941,6 @@ button:focus-visible {
     padding: 8px 10px;
   }
 
-  .brand-mark { width: 38px; height: 38px; }
   .hero-hud h1 { font-size: 1.02rem; letter-spacing: 0.08em; }
   .eyebrow { font-size: 0.58rem; letter-spacing: 0.16em; }
   .icon-btn { width: 34px; min-height: 34px; }
@@ -1042,10 +1017,8 @@ button:focus-visible {
 
 @media (max-width: 430px) {
   .brand-lockup { gap: 8px; }
-  .brand-mark { width: 34px; height: 34px; font-size: 0.82rem; }
   .hud-actions { gap: 5px; }
   .primary-btn { font-size: 0.72rem; }
-  .primary-btn span { min-width: 17px; }
   .scanner-copy strong { max-width: 58vw; font-size: 0.78rem; }
   .spawn-bay { width: 38px; }
   .spawn-bay span { display: none; }
