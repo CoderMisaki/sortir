@@ -13,7 +13,7 @@
       <div>
         <p class="eyebrow">KURIR KILAT // LIVE SORTING FLOOR</p>
         <h1>Simulator Sortir Paket</h1>
-        <p class="subtitle">Paket bergerak real-time dari kiri ke kanan. Sortir sebelum melewati sensor drop.</p>
+        <p class="subtitle">Paket bergerak real-time dari kiri ke kanan. Saat lewat SORT NOW, tombol tujuan bergetar; sortir sebelum MISS.</p>
       </div>
       <div class="hud-actions">
         <button id="themeBtn" class="icon-btn" type="button" aria-label="Ganti tema">◐</button>
@@ -97,36 +97,42 @@
         <button class="dest-bin bin-a" type="button" data-dest="A">
           <span class="shortcut">1</span>
           <strong>Rak A</strong>
+          <span class="bin-code">Kode A</span>
           <small>Reguler Area A</small>
           <i></i>
         </button>
         <button class="dest-bin bin-b" type="button" data-dest="B">
           <span class="shortcut">2</span>
           <strong>Rak B</strong>
+          <span class="bin-code">Kode B</span>
           <small>Reguler Area B</small>
           <i></i>
         </button>
         <button class="dest-bin bin-c" type="button" data-dest="C">
           <span class="shortcut">3</span>
           <strong>Rak C</strong>
+          <span class="bin-code">Kode C</span>
           <small>Reguler Area C</small>
           <i></i>
         </button>
         <button class="dest-bin bin-exp" type="button" data-dest="EXP">
           <span class="shortcut">4</span>
           <strong>Express</strong>
+          <span class="bin-code">Kode EXP</span>
           <small>Prioritas cepat</small>
           <i></i>
         </button>
         <button class="dest-bin bin-frg" type="button" data-dest="FRG">
           <span class="shortcut">5</span>
           <strong>Fragile</strong>
+          <span class="bin-code">Kode FRG</span>
           <small>Barang pecah belah</small>
           <i></i>
         </button>
         <button class="dest-bin bin-ret" type="button" data-dest="RET">
           <span class="shortcut">6</span>
           <strong>Return</strong>
+          <span class="bin-code">Kode RET</span>
           <small>Balik gudang</small>
           <i></i>
         </button>
@@ -138,7 +144,7 @@
     <div class="modal-card">
       <p class="eyebrow">SHIFT CONTROL</p>
       <h2 id="startTitle">Mulai Conveyor Sorting</h2>
-      <p>Paket akan masuk dari kiri dan terus berjalan. Tekan bin tujuan atau shortcut 1-6 sebelum paket melewati sensor.</p>
+      <p>Paket akan masuk dari kiri dan terus berjalan. Cocokkan kode paket dengan kode bin, lalu tekan bin tujuan atau shortcut 1-6 sebelum paket masuk MISS.</p>
       <div class="mode-options">
         <button id="classicBtn" class="mode-card" type="button">
           <strong>Classic</strong>
@@ -149,7 +155,7 @@
           <span>60 detik, kejar skor tertinggi.</span>
         </button>
       </div>
-      <p class="hint">Keyboard: 1 Rak A, 2 Rak B, 3 Rak C, 4 Express, 5 Fragile, 6 Return, P Pause.</p>
+      <p class="hint">Keyboard: 1 Rak A (kode A), 2 Rak B (kode B), 3 Rak C (kode C), 4 Express (kode EXP), 5 Fragile (kode FRG), 6 Return (kode RET), P Pause.</p>
     </div>
   </section>
 

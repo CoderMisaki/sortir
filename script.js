@@ -40,6 +40,7 @@ const GameState = {
   dropTarget: null,
   hasAnswered: false,
   hasResolved: false,
+  hasHintedSort: false,
   conveyorStartX: 0,
   conveyorEndX: 0,
   dropTriggerX: 0,
@@ -220,6 +221,7 @@ const Game = {
       isDropping: false,
       hasAnswered: false,
       hasResolved: false,
+      hasHintedSort: false,
       lastFrameTime: performance.now(),
       timeAttackLeft: GameConfig.timeAttackLimit
     });
@@ -287,6 +289,10 @@ const Game = {
     const isNearDecision = GameState.packageX >= GameState.dropTriggerX - 115 && GameState.packageX <= GameState.missZoneX;
     DOM.sensorLine.classList.toggle('alert', isNearDecision && !GameState.hasAnswered);
 
+    if (!GameState.hasAnswered && !GameState.hasHintedSort && GameState.packageX >= GameState.dropTriggerX) {
+      this.hintCorrectBin();
+    }
+
     if (!GameState.hasAnswered && GameState.packageX >= GameState.missZoneX) {
       this.resolvePackage('timeout', null);
     }
@@ -318,13 +324,14 @@ const Game = {
     GameState.dropTarget = null;
     GameState.hasAnswered = false;
     GameState.hasResolved = false;
+    GameState.hasHintedSort = false;
     DOM.packageCode.textContent = code;
-    DOM.packageDest.textContent = category.label;
+    DOM.packageDest.textContent = `${category.label} · Kode ${category.key}`;
     DOM.packageBox.className = 'package';
     DOM.sensorLine.classList.remove('alert');
     this.clearBinStates();
     this.renderPackage();
-    DOM.status.textContent = `Paket ${code} menuju ${category.label}. Sortir sebelum sensor!`;
+    DOM.status.textContent = `Paket ${code} menuju ${category.label} (kode ${category.key}). Tekan kode yang sama sebelum MISS!`;
   },
 
   submitSort(destination) {
@@ -333,8 +340,8 @@ const Game = {
     GameState.hasAnswered = true;
     const selectedBin = this.getBin(destination);
     selectedBin?.classList.add('active');
-    const isBeforeTrigger = GameState.packageX < GameState.dropTriggerX;
-    const isCorrect = destination === GameState.currentPackage.category.key && isBeforeTrigger;
+    const isBeforeMiss = GameState.packageX < GameState.missZoneX;
+    const isCorrect = destination === GameState.currentPackage.category.key && isBeforeMiss;
 
     if (isCorrect) this.resolvePackage('correct', destination);
     else this.resolvePackage('wrong', destination);
@@ -595,7 +602,18 @@ const Game = {
   },
 
   clearBinStates() {
-    DOM.bins.forEach(bin => bin.classList.remove('active', 'correct', 'wrong'));
+    DOM.bins.forEach(bin => bin.classList.remove('active', 'correct', 'wrong', 'sort-hint'));
+  },
+
+  hintCorrectBin() {
+    const destination = GameState.currentPackage?.category.key;
+    const bin = this.getBin(destination);
+    if (!bin) return;
+    GameState.hasHintedSort = true;
+    bin.classList.remove('sort-hint');
+    void bin.offsetWidth;
+    bin.classList.add('sort-hint');
+    TimeoutManager.set(() => bin.classList.remove('sort-hint'), 720, GameState.sessionId);
   },
 
   markBin(destination, className) {
