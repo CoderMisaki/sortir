@@ -517,10 +517,10 @@ const Game = {
     DOM.totalSorted.textContent = this.formatNumber(GameState.totalProcessed);
     DOM.modeLabel.textContent = GameState.mode === 'classic' ? 'CLASSIC' : 'TIME ATTACK';
     if (GameState.mode === 'classic') {
-      DOM.lives.textContent = this.renderHearts(GameState.lives);
+      DOM.lives.innerHTML = this.renderHearts(GameState.lives);
       DOM.level.textContent = String(GameState.level);
     } else {
-      DOM.lives.textContent = '∞';
+      DOM.lives.innerHTML = '<svg class="icon icon-infinity"><use href="#icon-infinity"></use></svg>';
       DOM.level.textContent = `${Math.ceil(GameState.globalTimeAttackLeft)}s`;
     }
     this.updateTimerUI();
@@ -539,7 +539,10 @@ const Game = {
   },
   renderHearts(lives) {
     const full = Math.max(0, Math.min(GameConfig.startingLives, lives));
-    return `${'♥'.repeat(full)}${'♡'.repeat(GameConfig.startingLives - full)}`;
+    const empty = GameConfig.startingLives - full;
+    const fullHeart = `<svg class="icon icon-heart full"><use href="#icon-heart-full"></use></svg>`;
+    const emptyHeart = `<svg class="icon icon-heart empty"><use href="#icon-heart-empty"></use></svg>`;
+    return `${fullHeart.repeat(full)}${emptyHeart.repeat(empty)}`;
   },
   togglePause(forcePaused) {
     if (!GameState.isRunning) return;
@@ -604,18 +607,18 @@ const Game = {
   },
   renderAchievements(isNewHigh) {
     const achievements = [];
-    if (isNewHigh) achievements.push('🏅 Rekor Baru');
-    if (GameState.correctCount >= 10) achievements.push('📦 Kurir Andal');
-    if (GameState.maxCombo >= 8) achievements.push('⚡ Combo Kilat');
-    if (this.getAccuracy() >= 90 && GameState.totalProcessed >= 5) achievements.push('🎯 Scanner Presisi');
-    if (GameState.timeoutCount === 0 && GameState.totalProcessed > 0) achievements.push('⏱ Anti Timeout');
-    if (GameState.score >= 3000) achievements.push('🏆 Operator Elite');
-    if (achievements.length === 0) achievements.push('🌱 Rookie Gudang');
+    if (isNewHigh) achievements.push('<svg class="icon"><use href="#icon-medal"></use></svg> Rekor Baru');
+    if (GameState.correctCount >= 10) achievements.push('<svg class="icon"><use href="#icon-box"></use></svg> Kurir Andal');
+    if (GameState.maxCombo >= 8) achievements.push('<svg class="icon"><use href="#icon-lightning"></use></svg> Combo Kilat');
+    if (this.getAccuracy() >= 90 && GameState.totalProcessed >= 5) achievements.push('<svg class="icon"><use href="#icon-crosshair"></use></svg> Scanner Presisi');
+    if (GameState.timeoutCount === 0 && GameState.totalProcessed > 0) achievements.push('<svg class="icon"><use href="#icon-clock"></use></svg> Anti Timeout');
+    if (GameState.score >= 3000) achievements.push('<svg class="icon"><use href="#icon-trophy"></use></svg> Operator Elite');
+    if (achievements.length === 0) achievements.push('<svg class="icon"><use href="#icon-seedling"></use></svg> Rookie Gudang');
     DOM.achievementList.replaceChildren();
     achievements.forEach(text => {
       const item = document.createElement('div');
       item.className = 'achievement-item';
-      item.textContent = text;
+      item.innerHTML = text;
       DOM.achievementList.appendChild(item);
     });
   },
@@ -666,7 +669,7 @@ const Game = {
     for (let index = 0; index < 10; index += 1) {
       const particle = document.createElement('span');
       particle.className = 'particle';
-      particle.textContent = symbol;
+      particle.innerHTML = symbol;
       particle.style.left = `${rect.left + rect.width / 2 + Math.random() * 90 - 45}px`;
       particle.style.top = `${rect.top + rect.height / 2 + Math.random() * 36 - 18}px`;
       document.body.appendChild(particle);
