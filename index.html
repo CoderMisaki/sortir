@@ -10,12 +10,14 @@
 <body>
   <div class="app-shell">
     <header class="hero-hud">
-      <div>
-        <p class="eyebrow">KURIR KILAT // LIVE SORTING FLOOR</p>
-        <h1>Simulator Sortir Paket</h1>
-        <p class="subtitle">Paket bergerak real-time dari kiri ke kanan. Saat lewat SORT NOW, tombol tujuan bergetar; sortir sebelum MISS.</p>
+      <div class="brand-lockup" aria-label="Identitas game">
+        <span class="brand-mark">KK</span>
+        <div>
+          <h1>KURIR KILAT</h1>
+          <p class="eyebrow">LIVE SORTING FLOOR</p>
+        </div>
       </div>
-      <div class="hud-actions">
+      <div class="hud-actions" aria-label="Kontrol game">
         <button id="themeBtn" class="icon-btn" type="button" aria-label="Ganti tema">◐</button>
         <button id="soundBtn" class="icon-btn" type="button" aria-label="Matikan suara">🔊</button>
         <button id="pauseBtn" class="primary-btn hidden" type="button">Pause <span>P</span></button>
@@ -32,7 +34,7 @@
         <strong id="bestDisplay">0</strong>
       </article>
       <article class="stat-card">
-        <span>Level</span>
+        <span>Time / Level</span>
         <strong id="levelDisplay">1</strong>
       </article>
       <article class="stat-card">
@@ -51,15 +53,22 @@
 
     <main class="sorting-machine" aria-label="Area mesin sortir paket">
       <section class="machine-topbar">
-        <div>
-          <span class="live-dot"></span>
-          <strong id="statusText">Siap mulai shift sortir</strong>
+        <div class="scanner-status">
+          <div class="scanner-copy">
+            <span class="live-dot"></span>
+            <strong id="statusText">SCAN: STANDBY → TARGET: --</strong>
+          </div>
+          <div class="scanner-badges" aria-hidden="true">
+            <span>ON BELT</span>
+            <span>SORT BEFORE MISS</span>
+          </div>
         </div>
         <div class="mode-pill" id="modeLabel">CLASSIC</div>
       </section>
 
       <section class="game-stage" id="gameStage">
         <div class="factory-grid" aria-hidden="true"></div>
+        <div class="floor-perspective" aria-hidden="true"></div>
         <div class="spawn-bay">
           <span>SPAWN</span>
         </div>
@@ -71,13 +80,28 @@
         </div>
 
         <div class="conveyor-wrap" id="conveyorWrap">
+          <div class="hazard hazard-left" aria-hidden="true"></div>
+          <div class="hazard hazard-right" aria-hidden="true"></div>
           <div class="conveyor-shadow"></div>
+          <div class="rail rail-top">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
           <div class="conveyor" id="conveyorBelt">
             <div class="belt-stripes"></div>
             <div class="belt-glow"></div>
           </div>
-          <div class="rail rail-top"></div>
-          <div class="rail rail-bottom"></div>
+          <div class="rail rail-bottom">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="drop-lanes" aria-hidden="true">
+          <div class="drop-lane"><span>A</span></div>
+          <div class="drop-lane"><span>B</span></div>
+          <div class="drop-lane"><span>C</span></div>
+          <div class="drop-lane"><span>EXP</span></div>
+          <div class="drop-lane"><span>FRG</span></div>
+          <div class="drop-lane"><span>RET</span></div>
         </div>
 
         <div class="package" id="packageBox" aria-live="polite">
@@ -93,47 +117,53 @@
         <div class="drop-feedback" id="dropFeedback" aria-live="polite"></div>
       </section>
 
-      <section class="destination-panel" aria-label="Bin tujuan sortir">
+      <section class="destination-panel" aria-label="Receiving bay tujuan sortir">
         <button class="dest-bin bin-a" type="button" data-dest="A">
+          <span class="bin-mouth"></span>
           <span class="shortcut">1</span>
-          <strong>Rak A</strong>
-          <span class="bin-code">Kode A</span>
-          <small>Reguler Area A</small>
+          <span class="bin-code">A</span>
+          <strong>RAK A</strong>
+          <small>REGULAR</small>
           <i></i>
         </button>
         <button class="dest-bin bin-b" type="button" data-dest="B">
+          <span class="bin-mouth"></span>
           <span class="shortcut">2</span>
-          <strong>Rak B</strong>
-          <span class="bin-code">Kode B</span>
-          <small>Reguler Area B</small>
+          <span class="bin-code">B</span>
+          <strong>RAK B</strong>
+          <small>REGULAR</small>
           <i></i>
         </button>
         <button class="dest-bin bin-c" type="button" data-dest="C">
+          <span class="bin-mouth"></span>
           <span class="shortcut">3</span>
-          <strong>Rak C</strong>
-          <span class="bin-code">Kode C</span>
-          <small>Reguler Area C</small>
+          <span class="bin-code">C</span>
+          <strong>RAK C</strong>
+          <small>REGULAR</small>
           <i></i>
         </button>
         <button class="dest-bin bin-exp" type="button" data-dest="EXP">
+          <span class="bin-mouth"></span>
           <span class="shortcut">4</span>
-          <strong>Express</strong>
-          <span class="bin-code">Kode EXP</span>
-          <small>Prioritas cepat</small>
+          <span class="bin-code">EXP</span>
+          <strong>EXPRESS</strong>
+          <small>PRIORITY</small>
           <i></i>
         </button>
         <button class="dest-bin bin-frg" type="button" data-dest="FRG">
+          <span class="bin-mouth"></span>
           <span class="shortcut">5</span>
-          <strong>Fragile</strong>
-          <span class="bin-code">Kode FRG</span>
-          <small>Barang pecah belah</small>
+          <span class="bin-code">FRG</span>
+          <strong>FRAGILE</strong>
+          <small>HANDLE CARE</small>
           <i></i>
         </button>
         <button class="dest-bin bin-ret" type="button" data-dest="RET">
+          <span class="bin-mouth"></span>
           <span class="shortcut">6</span>
-          <strong>Return</strong>
-          <span class="bin-code">Kode RET</span>
-          <small>Balik gudang</small>
+          <span class="bin-code">RET</span>
+          <strong>RETURN</strong>
+          <small>BACKFLOW</small>
           <i></i>
         </button>
       </section>
@@ -144,7 +174,7 @@
     <div class="modal-card">
       <p class="eyebrow">SHIFT CONTROL</p>
       <h2 id="startTitle">Mulai Conveyor Sorting</h2>
-      <p>Paket akan masuk dari kiri dan terus berjalan. Cocokkan kode paket dengan kode bin, lalu tekan bin tujuan atau shortcut 1-6 sebelum paket masuk MISS.</p>
+      <p>Cocokkan kode paket dengan receiving bay. Tekan bin atau shortcut 1-6 sebelum paket masuk MISS.</p>
       <div class="mode-options">
         <button id="classicBtn" class="mode-card" type="button">
           <strong>Classic</strong>
@@ -155,7 +185,7 @@
           <span>60 detik, kejar skor tertinggi.</span>
         </button>
       </div>
-      <p class="hint">Keyboard: 1 Rak A (kode A), 2 Rak B (kode B), 3 Rak C (kode C), 4 Express (kode EXP), 5 Fragile (kode FRG), 6 Return (kode RET), P Pause.</p>
+      <p class="hint">Keyboard: 1 A, 2 B, 3 C, 4 EXP, 5 FRG, 6 RET, P Pause.</p>
     </div>
   </section>
 
