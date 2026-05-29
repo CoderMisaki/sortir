@@ -231,7 +231,7 @@ const Game = {
     DOM.pauseBtn.classList.remove('hidden');
     DOM.stage.classList.remove('paused');
     DOM.modeLabel.textContent = mode === 'classic' ? 'CLASSIC' : 'TIME ATTACK';
-    DOM.status.textContent = 'Conveyor aktif. Paket masuk dari spawn bay.';
+    DOM.status.textContent = 'SCAN: LIVE FEED → TARGET: --';
     this.updateLayoutMetrics();
     this.updateUI();
     this.spawnPackage();
@@ -331,7 +331,7 @@ const Game = {
     DOM.sensorLine.classList.remove('alert');
     this.clearBinStates();
     this.renderPackage();
-    DOM.status.textContent = `Paket ${code} menuju ${category.label} (kode ${category.key}). Tekan kode yang sama sebelum MISS!`;
+    DOM.status.textContent = `SCAN: ${code} → TARGET: ${category.label.toUpperCase()}`;
   },
 
   submitSort(destination) {
@@ -428,12 +428,12 @@ const Game = {
       const binRect = bin.getBoundingClientRect();
       return {
         x: binRect.left - stageRect.left + binRect.width / 2 - GameState.packageWidth / 2,
-        y: stageRect.height - 72
+        y: stageRect.height - 58
       };
     }
     return {
       x: GameState.missZoneX,
-      y: DOM.stage.getBoundingClientRect().height - 64
+      y: DOM.stage.getBoundingClientRect().height - 54
     };
   },
 
@@ -520,7 +520,7 @@ const Game = {
     DOM.pauseModal.classList.toggle('hidden', !GameState.isPaused);
     DOM.stage.classList.toggle('paused', GameState.isPaused);
     DOM.pauseBtn.innerHTML = GameState.isPaused ? 'Resume <span>P</span>' : 'Pause <span>P</span>';
-    DOM.status.textContent = GameState.isPaused ? 'Conveyor berhenti sementara.' : 'Conveyor aktif kembali.';
+    DOM.status.textContent = GameState.isPaused ? 'SCAN: PAUSED → TARGET: HOLD' : 'SCAN: LIVE FEED → TARGET: --';
   },
 
   endGame() {
@@ -548,7 +548,7 @@ const Game = {
     DOM.gameOverModal.classList.add('hidden');
     DOM.startModal.classList.remove('hidden');
     DOM.stage.classList.add('paused');
-    DOM.status.textContent = 'Siap mulai shift sortir';
+    DOM.status.textContent = 'SCAN: STANDBY → TARGET: --';
     this.updateUI();
   },
 
