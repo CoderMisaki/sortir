@@ -17,8 +17,8 @@
         </div>
       </div>
       <div class="hud-actions" aria-label="Kontrol game">
-        <button id="themeBtn" class="icon-btn" type="button" aria-label="Ganti tema">◐</button>
-        <button id="soundBtn" class="icon-btn" type="button" aria-label="Matikan suara">🔊</button>
+        <button id="themeBtn" class="icon-btn theme-toggle" type="button" aria-label="Ganti tema"><span aria-hidden="true"></span></button>
+        <button id="soundBtn" class="icon-btn sound-toggle" type="button" aria-label="Matikan suara"><span aria-hidden="true"></span></button>
         <button id="pauseBtn" class="primary-btn hidden" type="button">Pause</button>
       </div>
     </header>
@@ -38,7 +38,7 @@
       </article>
       <article class="stat-card">
         <span>Lives</span>
-        <strong id="livesDisplay">♥ ♥ ♥</strong>
+        <strong id="livesDisplay" class="lives-meter" aria-label="3 lives"><span></span><span></span><span></span></strong>
       </article>
       <article class="stat-card">
         <span>Combo</span>
@@ -77,6 +77,10 @@
         <div class="miss-zone" id="missZone">
           <span>MISS</span>
         </div>
+        <div class="reject-chute" id="rejectChute" aria-label="Reject chute untuk paket miss">
+          <span>REJECT</span>
+          <i></i>
+        </div>
 
         <div class="conveyor-wrap" id="conveyorWrap">
           <div class="hazard hazard-left" aria-hidden="true"></div>
@@ -95,12 +99,12 @@
         </div>
 
         <div class="drop-lanes" aria-hidden="true">
-          <div class="drop-lane"><span>A</span></div>
-          <div class="drop-lane"><span>B</span></div>
-          <div class="drop-lane"><span>C</span></div>
-          <div class="drop-lane"><span>EXP</span></div>
-          <div class="drop-lane"><span>FRG</span></div>
-          <div class="drop-lane"><span>RET</span></div>
+          <div class="drop-lane" data-dest="A"><span>A</span></div>
+          <div class="drop-lane" data-dest="B"><span>B</span></div>
+          <div class="drop-lane" data-dest="C"><span>C</span></div>
+          <div class="drop-lane" data-dest="EXP"><span>EXP</span></div>
+          <div class="drop-lane" data-dest="FRG"><span>FRG</span></div>
+          <div class="drop-lane" data-dest="RET"><span>RET</span></div>
         </div>
 
         <div class="package" id="packageBox" aria-live="polite">
@@ -123,6 +127,7 @@
           <span class="bin-code">A</span>
           <strong>RAK A</strong>
           <small>REGULAR</small>
+          <span class="bin-count">0</span>
           <i></i>
         </button>
         <button class="dest-bin bin-b" type="button" data-dest="B">
@@ -131,6 +136,7 @@
           <span class="bin-code">B</span>
           <strong>RAK B</strong>
           <small>REGULAR</small>
+          <span class="bin-count">0</span>
           <i></i>
         </button>
         <button class="dest-bin bin-c" type="button" data-dest="C">
@@ -139,6 +145,7 @@
           <span class="bin-code">C</span>
           <strong>RAK C</strong>
           <small>REGULAR</small>
+          <span class="bin-count">0</span>
           <i></i>
         </button>
         <button class="dest-bin bin-exp" type="button" data-dest="EXP">
@@ -147,6 +154,7 @@
           <span class="bin-code">EXP</span>
           <strong>EXPRESS</strong>
           <small>PRIORITY</small>
+          <span class="bin-count">0</span>
           <i></i>
         </button>
         <button class="dest-bin bin-frg" type="button" data-dest="FRG">
@@ -155,6 +163,7 @@
           <span class="bin-code">FRG</span>
           <strong>FRAGILE</strong>
           <small>HANDLE CARE</small>
+          <span class="bin-count">0</span>
           <i></i>
         </button>
         <button class="dest-bin bin-ret" type="button" data-dest="RET">
@@ -163,6 +172,7 @@
           <span class="bin-code">RET</span>
           <strong>RETURN</strong>
           <small>BACKFLOW</small>
+          <span class="bin-count">0</span>
           <i></i>
         </button>
       </section>
@@ -202,7 +212,8 @@
   <section class="modal hidden" id="gameOverModal" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle">
     <div class="modal-card">
       <p class="eyebrow">SHIFT REPORT</p>
-      <h2 id="gameOverTitle">Game Over</h2>
+      <h2 id="gameOverTitle">Shift Report</h2>
+      <div class="report-hero" id="reportHero"></div>
       <div class="result-grid" id="resultGrid"></div>
       <div class="modal-actions">
         <button id="restartBtn" class="primary-btn" type="button">Main Lagi</button>
