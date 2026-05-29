@@ -129,6 +129,12 @@ const Storage = {
   },
   setMuted(isMuted) {
     try { localStorage.setItem('sortir_muted', String(isMuted)); } catch { /* ignore */ }
+  },
+  getTutorialSeen() {
+    try { return localStorage.getItem('sortir_tutorial_seen') === 'true'; } catch { return false; }
+  },
+  setTutorialSeen() {
+    try { localStorage.setItem('sortir_tutorial_seen', 'true'); } catch { /* ignore */ }
   }
 };
 
@@ -206,6 +212,8 @@ const Game = {
 
   init() {
     document.documentElement.classList.toggle('light', Storage.getTheme());
+    this.updateThemeButton();
+    GameState.tutorialShown = Storage.getTutorialSeen();
     AudioFx.init();
     this.bindEvents();
     this.updateLayoutMetrics();
@@ -838,6 +846,7 @@ const Game = {
   showTutorial() {
     if (GameState.tutorialShown || !DOM.tutorialOverlay) return;
     GameState.tutorialShown = true;
+    Storage.setTutorialSeen();
     DOM.tutorialOverlay.classList.remove('hidden');
     TimeoutManager.set(() => DOM.tutorialOverlay.classList.add('hidden'), 5200, GameState.sessionId);
   },
@@ -886,7 +895,13 @@ const Game = {
     const nextLight = !document.documentElement.classList.contains('light');
     document.documentElement.classList.toggle('light', nextLight);
     Storage.setTheme(nextLight);
+    this.updateThemeButton();
     AudioFx.click();
+  },
+
+  updateThemeButton() {
+    const isLight = document.documentElement.classList.contains('light');
+    DOM.themeBtn.setAttribute('aria-label', isLight ? 'Ganti ke mode gelap' : 'Ganti ke mode terang');
   },
 
   lerp(start, end, amount) {
