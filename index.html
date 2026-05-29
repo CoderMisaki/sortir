@@ -3,129 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light dark">
-  <title>Kurir Kilat - Sortir Paket</title>
+  <meta name="color-scheme" content="dark light">
+  <title>KURIR KILAT - Simulator Sortir Paket</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="app-header">
-    <div class="header-inner">
-      <div class="brand">
-        <div class="brand-icon" aria-hidden="true">
-          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-          </svg>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand" aria-label="KURIR KILAT Simulator Sortir Paket">
+        <div class="brand-mark" aria-hidden="true">
+          <span class="speed-line line-a"></span>
+          <span class="speed-line line-b"></span>
+          <span class="speed-line line-c"></span>
+          <span class="box-icon">📦</span>
         </div>
-        <div>
-          <h1>KURIR KILAT</h1>
+        <div class="brand-copy">
+          <p class="eyebrow">Futuristic Logistics Console</p>
+          <h1>KURIR <span>KILAT</span></h1>
           <p>Simulator Sortir Paket</p>
         </div>
       </div>
-
-      <div class="header-actions">
-        <button id="darkModeBtn" class="icon-btn" type="button" title="Ganti Tema" aria-label="Ganti tema gelap atau terang">
-          <svg id="sunIcon" class="icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.071 6.071l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-          <svg id="moonIcon" class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-        </button>
-        <button id="muteBtn" class="icon-btn" type="button" title="Bungkam Suara" aria-label="Bungkam atau nyalakan suara">
-          <svg id="unmutedIcon" class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
-          <svg id="mutedIcon" class="icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zm11.543-6.121l4.242 4.242m0-4.242l-4.242 4.242"></path></svg>
-        </button>
-        <button id="helpBtn" class="icon-btn" type="button" title="Panduan Permainan" aria-label="Buka panduan permainan">
-          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        </button>
-        <button id="pauseBtn" class="control-btn hidden" type="button">
-          <svg class="icon small" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          <span id="pauseBtnText">Pause</span>
-        </button>
+      <div class="header-actions" aria-label="Kontrol utama">
+        <button id="muteBtn" class="icon-btn" type="button" aria-label="Mute atau unmute audio" aria-pressed="false"><span id="unmutedIcon">🔊</span><span id="mutedIcon" class="hidden">🔇</span></button>
+        <button id="darkModeBtn" class="icon-btn" type="button" aria-label="Ganti tema gelap atau terang" aria-pressed="true"><span id="moonIcon">🌙</span><span id="sunIcon" class="hidden">☀️</span></button>
+        <button id="pauseBtn" class="control-btn hidden" type="button" aria-label="Pause atau resume game"><span aria-hidden="true">⏸</span><span id="pauseBtnText">Pause</span></button>
+        <button id="helpBtn" class="icon-btn" type="button" aria-label="Buka bantuan dan tutorial">?</button>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <section class="stats-grid" aria-label="Statistik permainan">
-    <article class="stat-card" aria-live="polite"><div><span>Skor</span><strong id="scoreDisplay">0</strong></div><em aria-hidden="true">🏆</em></article>
-    <article class="stat-card"><div><span>Combo</span><strong id="comboDisplay" class="blue">0</strong></div><b id="comboBadge" class="badge hidden">AKTIF</b></article>
-    <article class="stat-card"><div><span>Nyawa</span><div id="livesDisplay" class="lives" aria-live="polite"></div></div><em aria-hidden="true">❤️</em></article>
-    <article class="stat-card" aria-live="polite"><div><span id="modeHeaderLabel">Level</span><strong id="levelDisplay" class="green">1</strong></div><em aria-hidden="true">🚀</em></article>
-    <article class="stat-card"><div><span>Akurasi</span><strong id="accuracyDisplay" class="violet">100%</strong></div><em aria-hidden="true">🎯</em></article>
-    <article class="stat-card"><div><span>Diproses</span><strong id="totalSortedDisplay" class="pink">0</strong></div><em aria-hidden="true">📦</em></article>
-  </section>
-
-  <main class="game-shell">
-    <section class="conveyor-panel" aria-label="Area paket berjalan">
-      <div class="scanner"><span aria-hidden="true"></span>Sensor Scanner Aktif</div>
-      <div id="levelUpBanner" class="level-banner" aria-live="assertive"><h2>LEVEL UP!</h2><p id="levelUpDesc">Kecepatan bertambah & batas waktu diperketat!</p></div>
-      <div class="timer-track" aria-hidden="true"><div id="packageTimerBar" class="timer-bar"></div></div>
-      <div id="conveyorBelt" class="conveyor-belt"><div id="packageContainer" class="package-container"></div></div>
-      <p class="touch-hint">Seret paket, klik Rak tujuan langsung, atau tekan angka [1-6].</p>
+    <section class="stats-grid" aria-label="Statistik permainan">
+      <article class="stat-card stat-amber" aria-live="polite">
+        <span class="stat-icon" aria-hidden="true">🏆</span>
+        <div><p>Score</p><strong id="scoreDisplay">0</strong><small>BEST <span id="bestScoreDisplay">0</span></small></div>
+      </article>
+      <article class="stat-card stat-info" aria-live="polite">
+        <span class="stat-icon" aria-hidden="true">⚡</span>
+        <div><p>Combo</p><strong id="comboDisplay">x0</strong><small id="comboBadge" class="badge hidden">AWESOME</small></div>
+      </article>
+      <article class="stat-card stat-danger" aria-live="polite">
+        <span class="stat-icon" aria-hidden="true">❤️</span>
+        <div><p>Lives</p><strong id="livesDisplay" class="lives">♡♡♡</strong><small id="modeHeaderLabel">CLASSIC</small></div>
+      </article>
+      <article class="stat-card stat-success" aria-live="polite">
+        <span class="stat-icon" aria-hidden="true">🚀</span>
+        <div><p>Level</p><strong id="levelDisplay">1</strong><small>LEVEL AKTIF</small></div>
+      </article>
+      <article class="stat-card stat-violet" aria-live="polite">
+        <span class="stat-icon" aria-hidden="true">🎯</span>
+        <div><p>Accuracy</p><strong id="accuracyDisplay">100%</strong><small>PRECISION</small></div>
+      </article>
+      <article class="stat-card stat-pink" aria-live="polite">
+        <span class="stat-icon" aria-hidden="true">📦</span>
+        <div><p>Processed</p><strong id="totalSortedDisplay">0</strong><small>TOTAL PAKET</small></div>
+      </article>
     </section>
 
-    <section id="destinationGrid" class="destination-grid" aria-label="Rak tujuan sortir">
-      <button type="button" class="dest-zone blue-zone" data-dest="A"><span><b>Rak A</b><kbd>1</kbd></span><strong>🔵</strong><small>Kode Paket: A-*</small></button>
-      <button type="button" class="dest-zone green-zone" data-dest="B"><span><b>Rak B</b><kbd>2</kbd></span><strong>🟢</strong><small>Kode Paket: B-*</small></button>
-      <button type="button" class="dest-zone purple-zone" data-dest="C"><span><b>Rak C</b><kbd>3</kbd></span><strong>🟣</strong><small>Kode Paket: C-*</small></button>
-      <button type="button" class="dest-zone amber-zone" data-dest="EXP"><span><b>Express</b><kbd>4</kbd></span><strong>⚡</strong><small>Kode Paket: EXP-*</small></button>
-      <button type="button" class="dest-zone red-zone" data-dest="FRG"><span><b>Fragile</b><kbd>5</kbd></span><strong>🍷</strong><small>Kode Paket: FRG-*</small></button>
-      <button type="button" class="dest-zone slate-zone" data-dest="RET"><span><b>Return</b><kbd>6</kbd></span><strong>🔄</strong><small>Kode Paket: RET-*</small></button>
-    </section>
-  </main>
+    <main class="game-shell">
+      <section class="conveyor-panel" aria-label="Area utama conveyor dan paket">
+        <div class="scanner-tag"><span class="laser-dot" aria-hidden="true"></span><span>SCANNER ACTIVE</span></div>
+        <div class="laser-beam" aria-hidden="true"></div>
+        <div class="level-banner" id="levelUpBanner" aria-live="assertive"><strong>LEVEL UP</strong><span id="levelUpDesc">Kecepatan conveyor meningkat.</span></div>
+        <div class="timer-console" aria-live="polite">
+          <div class="timer-meta"><span>WAKTU TERSISA</span><strong id="timeLeftDisplay">8.0s</strong></div>
+          <div class="timer-track"><div id="packageTimerBar" class="timer-bar"></div></div>
+        </div>
+        <div id="conveyorBelt" class="conveyor-belt" aria-label="Ban berjalan paket">
+          <div class="belt-edge edge-left" aria-hidden="true"></div>
+          <div id="packageContainer" class="package-container"></div>
+          <div class="belt-edge edge-right" aria-hidden="true">›</div>
+        </div>
+        <p class="touch-hint">Klik/tap tombol tujuan, tekan angka [1-6], atau drag paket ke rak. Tekan <kbd>P</kbd> untuk pause.</p>
+      </section>
 
-  <footer class="app-footer">
-    <p>Kurir Kilat &copy; 2026. Game Kinerja & Manajemen Sortir Logistik.</p>
-    <button id="resetHighScoreBtn" class="link-btn" type="button">Hapus Rekor Skor</button>
-  </footer>
+      <section id="destinationGrid" class="destination-grid" aria-label="Tombol rak sortir tujuan">
+        <button type="button" class="dest-zone zone-blue" data-dest="A" aria-label="Sortir ke Rak A, shortcut 1"><span class="zone-icon">▤</span><span class="zone-copy"><b>Rak A</b><small>A-*</small></span><kbd>[1]</kbd></button>
+        <button type="button" class="dest-zone zone-green" data-dest="B" aria-label="Sortir ke Rak B, shortcut 2"><span class="zone-icon">▤</span><span class="zone-copy"><b>Rak B</b><small>B-*</small></span><kbd>[2]</kbd></button>
+        <button type="button" class="dest-zone zone-violet" data-dest="C" aria-label="Sortir ke Rak C, shortcut 3"><span class="zone-icon">▤</span><span class="zone-copy"><b>Rak C</b><small>C-*</small></span><kbd>[3]</kbd></button>
+        <button type="button" class="dest-zone zone-amber" data-dest="EXP" aria-label="Sortir ke Express, shortcut 4"><span class="zone-icon">⚡</span><span class="zone-copy"><b>Express</b><small>EXP-*</small></span><kbd>[4]</kbd></button>
+        <button type="button" class="dest-zone zone-red" data-dest="FRG" aria-label="Sortir ke Fragile, shortcut 5"><span class="zone-icon">🍷</span><span class="zone-copy"><b>Fragile</b><small>FRG-*</small></span><kbd>[5]</kbd></button>
+        <button type="button" class="dest-zone zone-slate" data-dest="RET" aria-label="Sortir ke Return, shortcut 6"><span class="zone-icon">↩</span><span class="zone-copy"><b>Return</b><small>RET-*</small></span><kbd>[6]</kbd></button>
+      </section>
+    </main>
+  </div>
 
   <div id="modeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modeTitle">
-    <div class="modal-card modal-card-md">
+    <div class="modal-card modal-card-lg">
       <div class="modal-hero">📦</div>
+      <p class="eyebrow centered">KURIR KILAT OPS</p>
       <h2 id="modeTitle">Pilih Mode Sortir</h2>
-      <p class="muted centered">Siapkan refleks Anda. Musik dan efek suara hanya aktif setelah Anda memilih mode.</p>
+      <p class="muted centered">Game siap offline. Audio baru aktif setelah Anda memilih mode.</p>
       <div class="mode-actions">
-        <button id="selectClassicBtn" class="mode-btn" type="button"><span>❤️</span><span><b>Mode Klasik</b><small>3 nyawa, level naik bertahap, paket makin cepat datang.</small></span></button>
-        <button id="selectTimeAttackBtn" class="mode-btn" type="button"><span>⏱️</span><span><b>Time Attack (60 Detik)</b><small>Tanpa nyawa. Benar +1 detik, salah -2 detik.</small></span></button>
+        <button id="selectClassicBtn" class="mode-btn" type="button"><span>❤️</span><b>Classic</b><small>3 nyawa, level naik setiap 10 paket benar.</small></button>
+        <button id="selectTimeAttackBtn" class="mode-btn" type="button"><span>⏱️</span><b>Time Attack</b><small>60 detik. Benar +1 detik, salah -2 detik.</small></button>
       </div>
-      <div class="high-score-row"><span>Rekor Tertinggi Klasik:</span><b id="highClassicLabel">0</b></div>
-      <div class="high-score-row"><span>Rekor Tertinggi Time Attack:</span><b id="highTimeLabel">0</b></div>
+      <div class="high-score-row"><span>High Score Classic</span><strong id="highClassicLabel">0</strong></div>
+      <div class="high-score-row"><span>High Score Time Attack</span><strong id="highTimeLabel">0</strong></div>
+      <button id="resetHighScoreBtn" class="secondary-btn" type="button">Reset High Score</button>
     </div>
   </div>
 
   <div id="tutorialModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle">
     <div class="modal-card modal-card-lg scroll-card">
-      <div class="modal-head"><h3 id="tutorialTitle">Panduan Sortir Gudang</h3><button id="closeTutorialBtn" class="icon-btn" type="button" aria-label="Tutup panduan">✕</button></div>
+      <div class="modal-head"><h2 id="tutorialTitle">Tutorial Sortir Paket</h2><button id="closeTutorialBtn" class="icon-btn" type="button" aria-label="Tutup tutorial">✕</button></div>
       <div class="tutorial-body">
-        <h4><span>1</span>Cara Membaca Kode Paket</h4>
-        <p>Setiap paket memiliki awalan kode yang harus dicocokkan dengan rak tujuan.</p>
-        <div class="code-grid"><p><b>A-123</b> → Rak A</p><p><b>B-456</b> → Rak B</p><p><b>C-789</b> → Rak C</p><p><b>EXP-99</b> → Express</p><p><b>FRG-02</b> → Fragile</p><p><b>RET-88</b> → Return</p></div>
-        <h4><span>2</span>Metode Kontrol</h4>
-        <ul><li><strong>Desktop:</strong> Seret paket ke rak tujuan.</li><li><strong>Mobile:</strong> Ketuk rak tujuan langsung; tidak perlu memilih paket dulu.</li><li><strong>Keyboard:</strong> Tekan angka <kbd>1</kbd> sampai <kbd>6</kbd>. Tekan <kbd>P</kbd> untuk pause/resume.</li></ul>
-        <h4><span>3</span>Combo & Waktu</h4>
-        <p>Jawaban benar beruntun menaikkan combo dan skor. Timeout atau salah sortir memutus combo.</p>
+        <h3><span>1</span>Baca Awalan Kode</h3>
+        <p><b>A-</b>, <b>B-</b>, <b>C-</b>, <b>EXP-</b>, <b>FRG-</b>, dan <b>RET-</b> menentukan rak tujuan.</p>
+        <h3><span>2</span>Kontrol Fleksibel</h3>
+        <ul><li>Mobile: langsung ketuk tombol rak tujuan.</li><li>Desktop: keyboard [1-6] atau drag paket ke rak.</li><li>Tekan <kbd>P</kbd> untuk pause/resume saat modal tertutup.</li></ul>
+        <h3><span>3</span>Combo & Timer</h3>
+        <p>Jawaban benar beruntun membangun combo dan bonus skor. Timeout/salah sortir memutus combo.</p>
       </div>
-      <button id="startFromTutorialBtn" class="primary-btn" type="button">Mengerti, Ayo Main!</button>
+      <button id="startFromTutorialBtn" class="primary-btn" type="button">Mengerti</button>
     </div>
   </div>
 
   <div id="pauseModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
-    <div class="modal-card modal-card-sm centered"><div class="modal-hero">⏸️</div><h2 id="pauseTitle">Permainan Dijeda</h2><p class="muted">Tekan P atau tombol di bawah untuk melanjutkan.</p><button id="resumeModalBtn" class="primary-btn" type="button">Lanjutkan Sortir</button><button id="restartFromPauseBtn" class="secondary-btn" type="button">Mulai Ulang Game</button></div>
+    <div class="modal-card modal-card-sm centered"><div class="modal-hero">⏸</div><h2 id="pauseTitle">Permainan Dijeda</h2><p class="muted">Conveyor dan timer berhenti. Tekan P atau lanjutkan dari sini.</p><button id="resumeModalBtn" class="primary-btn" type="button">Resume</button><button id="restartFromPauseBtn" class="secondary-btn" type="button">Restart Mode Ini</button></div>
   </div>
 
   <div id="gameOverModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle">
     <div class="modal-card modal-card-lg">
-      <div class="centered"><div id="gameOverIcon" class="modal-hero">🏁</div><h2 id="gameOverTitle" class="danger-title">WAKTU KERJA HABIS</h2><p class="muted">Berikut evaluasi kinerja sortir paket Anda hari ini:</p></div>
+      <div class="centered"><div class="modal-hero">🏁</div><h2 id="gameOverTitle">Shift Selesai</h2><p class="muted">Rekap performa sortir paket Anda:</p></div>
+      <div id="newHighScoreAlert" class="high-alert hidden">🎉 HIGH SCORE BARU!</div>
       <div id="gameOverStats" class="result-grid" aria-live="polite"></div>
-      <div class="achievements"><h4>Lencana Penghargaan Lokal</h4><div id="achievementList" class="achievement-grid"></div></div>
-      <div id="newHighScoreAlert" class="high-alert hidden">🎉 REKOR SKOR BARU DI MODE INI! KERJA BAGUS!</div>
-      <button id="goRestartBtn" class="primary-btn" type="button">Mulai Sortir Lagi</button>
-      <button id="goMenuBtn" class="secondary-btn" type="button">Ganti Mode Game</button>
+      <section class="achievements"><h3>Achievement</h3><div id="achievementList" class="achievement-grid"></div></section>
+      <div class="modal-actions"><button id="goRestartBtn" class="primary-btn" type="button">Main Lagi</button><button id="goMenuBtn" class="secondary-btn" type="button">Pilih Mode</button></div>
     </div>
   </div>
 
   <div id="resetModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="resetTitle" aria-describedby="resetMessage">
     <div class="modal-card modal-card-sm centered">
-      <div class="modal-hero">🧹</div>
-      <h2 id="resetTitle">Hapus Rekor Skor?</h2>
-      <p id="resetMessage" class="muted">Semua rekor skor lokal untuk Mode Klasik dan Time Attack akan dihapus.</p>
-      <p id="resetFeedback" class="feedback" aria-live="polite"></p>
+      <div class="modal-hero">🧹</div><h2 id="resetTitle">Reset High Score?</h2><p id="resetMessage" class="muted">Semua rekor lokal Classic dan Time Attack akan dihapus.</p><p id="resetFeedback" class="feedback" aria-live="polite"></p>
       <div class="modal-actions"><button id="cancelResetBtn" class="secondary-btn" type="button">Batal</button><button id="confirmResetBtn" class="danger-btn" type="button">Hapus</button></div>
     </div>
   </div>
