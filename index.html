@@ -8,14 +8,148 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Hidden SVG Sprite Sheet for Icons -->
+  <svg style="display: none;">
+    <symbol id="icon-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+      <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+      <line x1="12" y1="22.08" x2="12" y2="12"></line>
+    </symbol>
+    <symbol id="icon-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+      <path d="M4 22h16"></path>
+      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+      <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path>
+    </symbol>
+    <symbol id="icon-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+    </symbol>
+    <symbol id="icon-heart-full" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </symbol>
+    <symbol id="icon-heart-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </symbol>
+    <symbol id="icon-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+      <path d="M12 15l-3-3a22 22 0 0 1 3.82-13 1.5 1.5 0 0 1 2.18 2.18A22 22 0 0 1 12 15z"></path>
+      <path d="M9 12l-3 3a22 22 0 0 0-13 3.82 1.5 1.5 0 0 0 2.18 2.18A22 22 0 0 0 12 9z"></path>
+      <circle cx="15.5" cy="8.5" r="1.5"></circle>
+    </symbol>
+    <symbol id="icon-crosshair" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="22" y1="12" x2="18" y2="12"></line>
+      <line x1="6" y1="12" x2="2" y2="12"></line>
+      <line x1="12" y1="6" x2="12" y2="2"></line>
+      <line x1="12" y1="22" x2="12" y2="18"></line>
+    </symbol>
+    <symbol id="icon-infinity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4zm0 0c2 2.67 4 4 6 4a4 4 0 1 0 0-8c-2 0-4 1.33-6 4z"></path>
+    </symbol>
+    <symbol id="icon-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    </symbol>
+    <symbol id="icon-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="4" width="4" height="16"></rect>
+      <rect x="14" y="4" width="4" height="16"></rect>
+    </symbol>
+    <symbol id="icon-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </symbol>
+    <symbol id="icon-shelf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="22" x2="21" y2="22"></line>
+      <line x1="3" y1="2" x2="3" y2="22"></line>
+      <line x1="21" y1="2" x2="21" y2="22"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="7" x2="21" y2="7"></line>
+      <line x1="3" y1="17" x2="21" y2="17"></line>
+    </symbol>
+    <symbol id="icon-wine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 22h8"></path>
+      <path d="M7 10h10"></path>
+      <path d="M12 15v7"></path>
+      <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5z"></path>
+    </symbol>
+    <symbol id="icon-return" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 14 4 9 9 4"></polyline>
+      <path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
+    </symbol>
+    <symbol id="icon-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="8" r="7"></circle>
+      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+    </symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <polyline points="12 6 12 12 16 14"></polyline>
+    </symbol>
+    <symbol id="icon-seedling" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22V12"></path>
+      <path d="M12 12c-1.3-4-4.5-5.5-7-6-2.5 1-4 4-2 7 2 3 5 2 7-1z"></path>
+      <path d="M12 12c1.3-4 4.5-5.5 7-6 2.5 1 4 4 2 7-2 3-5 2-7-1z"></path>
+    </symbol>
+    <symbol id="icon-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+      <line x1="4" y1="22" x2="4" y2="15"></line>
+    </symbol>
+    <symbol id="icon-broom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 11l4.5 4.5"></path>
+      <path d="M19 3l-8 8"></path>
+      <path d="M12 19.5v.5"></path>
+      <path d="M14.5 17h.5"></path>
+      <path d="M6 13a3 3 0 0 0 3-3V6L4 11h2v2z"></path>
+      <path d="M15 15l-4-4"></path>
+      <path d="M17 13l-4-4"></path>
+    </symbol>
+    <symbol id="icon-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"></path>
+    </symbol>
+    <symbol id="icon-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </symbol>
+    <symbol id="icon-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4h16c-.9 3.5-3 6-8 8 5 2 7.1 4.5 8 8H4c.9-3.5 3-6 8-8-5-2-7.1-4.5-8-8z"></path>
+    </symbol>
+  </svg>
+
   <div class="app-shell">
     <header class="app-header">
+      <div class="header-accent header-accent-left"></div>
+      <div class="header-accent header-accent-right"></div>
       <div class="brand" aria-label="KURIR KILAT Simulator Sortir Paket">
         <div class="brand-mark" aria-hidden="true">
           <span class="speed-line line-a"></span>
           <span class="speed-line line-b"></span>
           <span class="speed-line line-c"></span>
-          <span class="box-icon">📦</span>
+          <span class="box-icon"><svg class="icon"><use href="#icon-box"></use></svg></span>
         </div>
         <div class="brand-copy">
           <p class="eyebrow">Futuristic Logistics Console</p>
@@ -24,36 +158,47 @@
         </div>
       </div>
       <div class="header-actions" aria-label="Kontrol utama">
-        <button id="muteBtn" class="icon-btn" type="button" aria-label="Mute atau unmute audio" aria-pressed="false"><span id="unmutedIcon">🔊</span><span id="mutedIcon" class="hidden">🔇</span></button>
-        <button id="darkModeBtn" class="icon-btn" type="button" aria-label="Ganti tema gelap atau terang" aria-pressed="true"><span id="moonIcon">🌙</span><span id="sunIcon" class="hidden">☀️</span></button>
-        <button id="pauseBtn" class="control-btn hidden" type="button" aria-label="Pause atau resume game"><span aria-hidden="true">⏸</span><span id="pauseBtnText">Pause</span></button>
-        <button id="helpBtn" class="icon-btn" type="button" aria-label="Buka bantuan dan tutorial">?</button>
+        <button id="muteBtn" class="icon-btn" type="button" aria-label="Mute atau unmute audio" aria-pressed="false">
+          <span id="unmutedIcon"><svg class="icon"><use href="#icon-sound-on"></use></svg></span>
+          <span id="mutedIcon" class="hidden"><svg class="icon"><use href="#icon-sound-off"></use></svg></span>
+        </button>
+        <button id="darkModeBtn" class="icon-btn" type="button" aria-label="Ganti tema gelap atau terang" aria-pressed="true">
+          <span id="moonIcon"><svg class="icon"><use href="#icon-moon"></use></svg></span>
+          <span id="sunIcon" class="hidden"><svg class="icon"><use href="#icon-sun"></use></svg></span>
+        </button>
+        <button id="pauseBtn" class="control-btn hidden" type="button" aria-label="Pause atau resume game">
+          <span aria-hidden="true"><svg class="icon"><use href="#icon-pause"></use></svg></span>
+          <span id="pauseBtnText">Pause</span>
+        </button>
+        <button id="helpBtn" class="icon-btn" type="button" aria-label="Buka bantuan dan tutorial">
+          <svg class="icon"><use href="#icon-help"></use></svg>
+        </button>
       </div>
     </header>
 
     <section class="stats-grid" aria-label="Statistik permainan">
       <article class="stat-card stat-amber" aria-live="polite">
-        <span class="stat-icon" aria-hidden="true">🏆</span>
+        <span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#icon-trophy"></use></svg></span>
         <div><p>Score</p><strong id="scoreDisplay">0</strong><small>BEST <span id="bestScoreDisplay">0</span></small></div>
       </article>
       <article class="stat-card stat-info" aria-live="polite">
-        <span class="stat-icon" aria-hidden="true">⚡</span>
+        <span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#icon-lightning"></use></svg></span>
         <div><p>Combo</p><strong id="comboDisplay">x0</strong><small id="comboBadge" class="badge hidden">AWESOME</small></div>
       </article>
       <article class="stat-card stat-danger" aria-live="polite">
-        <span class="stat-icon" aria-hidden="true">❤️</span>
-        <div><p>Lives</p><strong id="livesDisplay" class="lives">♡♡♡</strong><small id="modeHeaderLabel">CLASSIC</small></div>
+        <span class="stat-icon" aria-hidden="true"><svg class="icon icon-heart full"><use href="#icon-heart-full"></use></svg></span>
+        <div><p>Lives</p><strong id="livesDisplay" class="lives"></strong><small id="modeHeaderLabel">CLASSIC</small></div>
       </article>
       <article class="stat-card stat-success" aria-live="polite">
-        <span class="stat-icon" aria-hidden="true">🚀</span>
+        <span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#icon-rocket"></use></svg></span>
         <div><p>Level</p><strong id="levelDisplay">1</strong><small>LEVEL AKTIF</small></div>
       </article>
       <article class="stat-card stat-violet" aria-live="polite">
-        <span class="stat-icon" aria-hidden="true">🎯</span>
+        <span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#icon-crosshair"></use></svg></span>
         <div><p>Accuracy</p><strong id="accuracyDisplay">100%</strong><small>PRECISION</small></div>
       </article>
       <article class="stat-card stat-pink" aria-live="polite">
-        <span class="stat-icon" aria-hidden="true">📦</span>
+        <span class="stat-icon" aria-hidden="true"><svg class="icon"><use href="#icon-box"></use></svg></span>
         <div><p>Processed</p><strong id="totalSortedDisplay">0</strong><small>TOTAL PAKET</small></div>
       </article>
     </section>
@@ -67,34 +212,41 @@
           <div class="timer-meta"><span>WAKTU TERSISA</span><strong id="timeLeftDisplay">8.0s</strong></div>
           <div class="timer-track"><div id="packageTimerBar" class="timer-bar"></div></div>
         </div>
-        <div id="conveyorBelt" class="conveyor-belt" aria-label="Ban berjalan paket">
-          <div class="belt-edge edge-left" aria-hidden="true"></div>
-          <div id="packageContainer" class="package-container"></div>
-          <div class="belt-edge edge-right" aria-hidden="true">›</div>
+        <div class="conveyor-container">
+          <div class="machine-housing machine-left"></div>
+          <div id="conveyorBelt" class="conveyor-belt" aria-label="Ban berjalan paket">
+            <div class="belt-rail-top"></div>
+            <div class="belt-edge edge-left" aria-hidden="true"></div>
+            <div id="packageContainer" class="package-container"></div>
+            <div class="laser-impact"></div>
+            <div class="belt-edge edge-right" aria-hidden="true">›</div>
+            <div class="belt-rail-bottom"></div>
+          </div>
+          <div class="machine-housing machine-right"><div class="arrow-indicator"></div></div>
         </div>
         <p class="touch-hint">Klik/tap tombol tujuan, tekan angka [1-6], atau drag paket ke rak. Tekan <kbd>P</kbd> untuk pause.</p>
       </section>
 
       <section id="destinationGrid" class="destination-grid" aria-label="Tombol rak sortir tujuan">
-        <button type="button" class="dest-zone zone-blue" data-dest="A" aria-label="Sortir ke Rak A, shortcut 1"><span class="zone-icon">▤</span><span class="zone-copy"><b>Rak A</b><small>A-*</small></span><kbd>[1]</kbd></button>
-        <button type="button" class="dest-zone zone-green" data-dest="B" aria-label="Sortir ke Rak B, shortcut 2"><span class="zone-icon">▤</span><span class="zone-copy"><b>Rak B</b><small>B-*</small></span><kbd>[2]</kbd></button>
-        <button type="button" class="dest-zone zone-violet" data-dest="C" aria-label="Sortir ke Rak C, shortcut 3"><span class="zone-icon">▤</span><span class="zone-copy"><b>Rak C</b><small>C-*</small></span><kbd>[3]</kbd></button>
-        <button type="button" class="dest-zone zone-amber" data-dest="EXP" aria-label="Sortir ke Express, shortcut 4"><span class="zone-icon">⚡</span><span class="zone-copy"><b>Express</b><small>EXP-*</small></span><kbd>[4]</kbd></button>
-        <button type="button" class="dest-zone zone-red" data-dest="FRG" aria-label="Sortir ke Fragile, shortcut 5"><span class="zone-icon">🍷</span><span class="zone-copy"><b>Fragile</b><small>FRG-*</small></span><kbd>[5]</kbd></button>
-        <button type="button" class="dest-zone zone-slate" data-dest="RET" aria-label="Sortir ke Return, shortcut 6"><span class="zone-icon">↩</span><span class="zone-copy"><b>Return</b><small>RET-*</small></span><kbd>[6]</kbd></button>
+        <button type="button" class="dest-zone zone-blue" data-dest="A" aria-label="Sortir ke Rak A, shortcut 1"><span class="zone-icon"><svg class="icon"><use href="#icon-shelf"></use></svg></span><span class="zone-copy"><b>Rak A</b><small>A-*</small></span><kbd>[1]</kbd></button>
+        <button type="button" class="dest-zone zone-green" data-dest="B" aria-label="Sortir ke Rak B, shortcut 2"><span class="zone-icon"><svg class="icon"><use href="#icon-shelf"></use></svg></span><span class="zone-copy"><b>Rak B</b><small>B-*</small></span><kbd>[2]</kbd></button>
+        <button type="button" class="dest-zone zone-violet" data-dest="C" aria-label="Sortir ke Rak C, shortcut 3"><span class="zone-icon"><svg class="icon"><use href="#icon-shelf"></use></svg></span><span class="zone-copy"><b>Rak C</b><small>C-*</small></span><kbd>[3]</kbd></button>
+        <button type="button" class="dest-zone zone-amber" data-dest="EXP" aria-label="Sortir ke Express, shortcut 4"><span class="zone-icon"><svg class="icon"><use href="#icon-lightning"></use></svg></span><span class="zone-copy"><b>Express</b><small>EXP-*</small></span><kbd>[4]</kbd></button>
+        <button type="button" class="dest-zone zone-red" data-dest="FRG" aria-label="Sortir ke Fragile, shortcut 5"><span class="zone-icon"><svg class="icon"><use href="#icon-wine"></use></svg></span><span class="zone-copy"><b>Fragile</b><small>FRG-*</small></span><kbd>[5]</kbd></button>
+        <button type="button" class="dest-zone zone-slate" data-dest="RET" aria-label="Sortir ke Return, shortcut 6"><span class="zone-icon"><svg class="icon"><use href="#icon-return"></use></svg></span><span class="zone-copy"><b>Return</b><small>RET-*</small></span><kbd>[6]</kbd></button>
       </section>
     </main>
   </div>
 
   <div id="modeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modeTitle">
     <div class="modal-card modal-card-lg">
-      <div class="modal-hero">📦</div>
+      <div class="modal-hero"><svg class="icon"><use href="#icon-box"></use></svg></div>
       <p class="eyebrow centered">KURIR KILAT OPS</p>
       <h2 id="modeTitle">Pilih Mode Sortir</h2>
       <p class="muted centered">Game siap offline. Audio baru aktif setelah Anda memilih mode.</p>
       <div class="mode-actions">
-        <button id="selectClassicBtn" class="mode-btn" type="button"><span>❤️</span><b>Classic</b><small>3 nyawa, level naik setiap 10 paket benar.</small></button>
-        <button id="selectTimeAttackBtn" class="mode-btn" type="button"><span>⏱️</span><b>Time Attack</b><small>60 detik. Benar +1 detik, salah -2 detik.</small></button>
+        <button id="selectClassicBtn" class="mode-btn" type="button"><span><svg class="icon"><use href="#icon-heart-full"></use></svg></span><b>Classic</b><small>3 nyawa, level naik setiap 10 paket benar.</small></button>
+        <button id="selectTimeAttackBtn" class="mode-btn" type="button"><span><svg class="icon"><use href="#icon-clock"></use></svg></span><b>Time Attack</b><small>60 detik. Benar +1 detik, salah -2 detik.</small></button>
       </div>
       <div class="high-score-row"><span>High Score Classic</span><strong id="highClassicLabel">0</strong></div>
       <div class="high-score-row"><span>High Score Time Attack</span><strong id="highTimeLabel">0</strong></div>
@@ -104,7 +256,7 @@
 
   <div id="tutorialModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="tutorialTitle">
     <div class="modal-card modal-card-lg scroll-card">
-      <div class="modal-head"><h2 id="tutorialTitle">Tutorial Sortir Paket</h2><button id="closeTutorialBtn" class="icon-btn" type="button" aria-label="Tutup tutorial">✕</button></div>
+      <div class="modal-head"><h2 id="tutorialTitle">Tutorial Sortir Paket</h2><button id="closeTutorialBtn" class="icon-btn" type="button" aria-label="Tutup tutorial"><svg class="icon"><use href="#icon-close"></use></svg></button></div>
       <div class="tutorial-body">
         <h3><span>1</span>Baca Awalan Kode</h3>
         <p><b>A-</b>, <b>B-</b>, <b>C-</b>, <b>EXP-</b>, <b>FRG-</b>, dan <b>RET-</b> menentukan rak tujuan.</p>
@@ -118,13 +270,13 @@
   </div>
 
   <div id="pauseModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
-    <div class="modal-card modal-card-sm centered"><div class="modal-hero">⏸</div><h2 id="pauseTitle">Permainan Dijeda</h2><p class="muted">Conveyor dan timer berhenti. Tekan P atau lanjutkan dari sini.</p><button id="resumeModalBtn" class="primary-btn" type="button">Resume</button><button id="restartFromPauseBtn" class="secondary-btn" type="button">Restart Mode Ini</button></div>
+    <div class="modal-card modal-card-sm centered"><div class="modal-hero"><svg class="icon"><use href="#icon-pause"></use></svg></div><h2 id="pauseTitle">Permainan Dijeda</h2><p class="muted">Conveyor dan timer berhenti. Tekan P atau lanjutkan dari sini.</p><button id="resumeModalBtn" class="primary-btn" type="button">Resume</button><button id="restartFromPauseBtn" class="secondary-btn" type="button">Restart Mode Ini</button></div>
   </div>
 
   <div id="gameOverModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle">
     <div class="modal-card modal-card-lg">
-      <div class="centered"><div class="modal-hero">🏁</div><h2 id="gameOverTitle">Shift Selesai</h2><p class="muted">Rekap performa sortir paket Anda:</p></div>
-      <div id="newHighScoreAlert" class="high-alert hidden">🎉 HIGH SCORE BARU!</div>
+      <div class="centered"><div class="modal-hero"><svg class="icon"><use href="#icon-flag"></use></svg></div><h2 id="gameOverTitle">Shift Selesai</h2><p class="muted">Rekap performa sortir paket Anda:</p></div>
+      <div id="newHighScoreAlert" class="high-alert hidden"><svg class="icon"><use href="#icon-medal"></use></svg> HIGH SCORE BARU!</div>
       <div id="gameOverStats" class="result-grid" aria-live="polite"></div>
       <section class="achievements"><h3>Achievement</h3><div id="achievementList" class="achievement-grid"></div></section>
       <div class="modal-actions"><button id="goRestartBtn" class="primary-btn" type="button">Main Lagi</button><button id="goMenuBtn" class="secondary-btn" type="button">Pilih Mode</button></div>
@@ -133,7 +285,7 @@
 
   <div id="resetModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="resetTitle" aria-describedby="resetMessage">
     <div class="modal-card modal-card-sm centered">
-      <div class="modal-hero">🧹</div><h2 id="resetTitle">Reset High Score?</h2><p id="resetMessage" class="muted">Semua rekor lokal Classic dan Time Attack akan dihapus.</p><p id="resetFeedback" class="feedback" aria-live="polite"></p>
+      <div class="modal-hero"><svg class="icon"><use href="#icon-broom"></use></svg></div><h2 id="resetTitle">Reset High Score?</h2><p id="resetMessage" class="muted">Semua rekor lokal Classic dan Time Attack akan dihapus.</p><p id="resetFeedback" class="feedback" aria-live="polite"></p>
       <div class="modal-actions"><button id="cancelResetBtn" class="secondary-btn" type="button">Batal</button><button id="confirmResetBtn" class="danger-btn" type="button">Hapus</button></div>
     </div>
   </div>
