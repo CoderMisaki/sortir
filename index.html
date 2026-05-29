@@ -71,6 +71,12 @@
         <div class="spawn-bay">
           <span>SPAWN</span>
         </div>
+        <div class="perfect-zone" id="perfectZone" aria-hidden="true">
+          <span>PERFECT BONUS</span>
+        </div>
+        <div class="late-zone" id="lateZone" aria-hidden="true">
+          <span>LATE SORT</span>
+        </div>
         <div class="sensor-line" id="sensorLine">
           <span>SORT NOW</span>
         </div>
@@ -79,6 +85,7 @@
         </div>
         <div class="reject-chute" id="rejectChute" aria-label="Reject chute untuk paket miss">
           <span>REJECT</span>
+          <strong id="rejectCount">MISS 00</strong>
           <i></i>
         </div>
 
@@ -117,62 +124,75 @@
         </div>
 
         <div class="drop-guide" aria-hidden="true"></div>
+        <div class="tutorial-overlay hidden" id="tutorialOverlay" aria-live="polite">
+          <ol>
+            <li><strong>1</strong><span>Baca kode paket.</span></li>
+            <li><strong>2</strong><span>Tekan receiving bay sesuai kode.</span></li>
+            <li><strong>3</strong><span>Sortir sebelum MISS.</span></li>
+          </ol>
+        </div>
         <div class="drop-feedback" id="dropFeedback" aria-live="polite"></div>
       </section>
 
       <section class="destination-panel" aria-label="Receiving bay tujuan sortir">
         <button class="dest-bin bin-a" type="button" data-dest="A">
           <span class="bin-mouth"></span>
+          <span class="bin-lamp" aria-hidden="true"></span>
           <span class="shortcut">1</span>
           <span class="bin-code">A</span>
           <strong>RAK A</strong>
           <small>REGULAR</small>
-          <span class="bin-count">0</span>
+          <span class="bin-count">LOAD 00</span>
           <i></i>
         </button>
         <button class="dest-bin bin-b" type="button" data-dest="B">
           <span class="bin-mouth"></span>
+          <span class="bin-lamp" aria-hidden="true"></span>
           <span class="shortcut">2</span>
           <span class="bin-code">B</span>
           <strong>RAK B</strong>
           <small>REGULAR</small>
-          <span class="bin-count">0</span>
+          <span class="bin-count">LOAD 00</span>
           <i></i>
         </button>
         <button class="dest-bin bin-c" type="button" data-dest="C">
           <span class="bin-mouth"></span>
+          <span class="bin-lamp" aria-hidden="true"></span>
           <span class="shortcut">3</span>
           <span class="bin-code">C</span>
           <strong>RAK C</strong>
           <small>REGULAR</small>
-          <span class="bin-count">0</span>
+          <span class="bin-count">LOAD 00</span>
           <i></i>
         </button>
         <button class="dest-bin bin-exp" type="button" data-dest="EXP">
           <span class="bin-mouth"></span>
+          <span class="bin-lamp" aria-hidden="true"></span>
           <span class="shortcut">4</span>
           <span class="bin-code">EXP</span>
           <strong>EXPRESS</strong>
           <small>PRIORITY</small>
-          <span class="bin-count">0</span>
+          <span class="bin-count">LOAD 00</span>
           <i></i>
         </button>
         <button class="dest-bin bin-frg" type="button" data-dest="FRG">
           <span class="bin-mouth"></span>
+          <span class="bin-lamp" aria-hidden="true"></span>
           <span class="shortcut">5</span>
           <span class="bin-code">FRG</span>
           <strong>FRAGILE</strong>
           <small>HANDLE CARE</small>
-          <span class="bin-count">0</span>
+          <span class="bin-count">LOAD 00</span>
           <i></i>
         </button>
         <button class="dest-bin bin-ret" type="button" data-dest="RET">
           <span class="bin-mouth"></span>
+          <span class="bin-lamp" aria-hidden="true"></span>
           <span class="shortcut">6</span>
           <span class="bin-code">RET</span>
           <strong>RETURN</strong>
           <small>BACKFLOW</small>
-          <span class="bin-count">0</span>
+          <span class="bin-count">LOAD 00</span>
           <i></i>
         </button>
       </section>

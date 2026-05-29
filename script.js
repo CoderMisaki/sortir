@@ -66,7 +66,8 @@ const GameState = {
   lastFrameTime: 0,
   timeAttackLeft: GameConfig.timeAttackLimit,
   binCounts: {},
-  wasNewBest: false
+  wasNewBest: false,
+  tutorialShown: false
 };
 
 const DOM = {
@@ -86,7 +87,11 @@ const DOM = {
   packageDest: document.getElementById('packageDest'),
   sensorLine: document.getElementById('sensorLine'),
   missZone: document.getElementById('missZone'),
+  perfectZone: document.getElementById('perfectZone'),
+  lateZone: document.getElementById('lateZone'),
   rejectChute: document.getElementById('rejectChute'),
+  rejectCount: document.getElementById('rejectCount'),
+  tutorialOverlay: document.getElementById('tutorialOverlay'),
   dropLanes: Array.from(document.querySelectorAll('.drop-lane')),
   reportHero: document.getElementById('reportHero'),
   dropFeedback: document.getElementById('dropFeedback'),
@@ -167,10 +172,19 @@ const AudioFx = {
     osc.start(start);
     osc.stop(start + duration + 0.02);
   },
+  unlock() {
+    if (this.muted) return;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    if (!this.ctx) this.ctx = new AudioContext();
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+  },
   click() { this.tone(440, 'triangle', 0.05); },
-  success() { this.tone(523, 'triangle', 0.11, 0, 0.05); this.tone(784, 'sine', 0.16, 0.07, 0.04); },
-  fail() { this.tone(160, 'sawtooth', 0.16, 0, 0.045); },
-  level() { [392, 494, 659].forEach((freq, index) => this.tone(freq, 'sine', 0.12, index * 0.07, 0.04)); },
+  successPerfect() { this.tone(740, 'triangle', 0.08, 0, 0.045); this.tone(988, 'sine', 0.13, 0.055, 0.038); },
+  successLate() { this.tone(523, 'triangle', 0.10, 0, 0.042); this.tone(659, 'sine', 0.12, 0.055, 0.032); },
+  wrong() { this.tone(185, 'square', 0.075, 0, 0.042); this.tone(138, 'sawtooth', 0.06, 0.075, 0.032); },
+  miss() { this.tone(120, 'triangle', 0.11, 0, 0.04); this.tone(82, 'sawtooth', 0.10, 0.06, 0.028); },
+  level() { [392, 494, 587, 784].forEach((freq, index) => this.tone(freq, 'sine', 0.11, index * 0.065, 0.038)); },
   toggle() {
     this.muted = !this.muted;
     Storage.setMuted(this.muted);
@@ -196,6 +210,7 @@ const Game = {
     this.updateUI();
     DOM.packageBox.classList.add('hidden');
     DOM.stage.classList.add('paused');
+    this.resetRejectCounter();
   },
 
   bindEvents() {
@@ -218,6 +233,7 @@ const Game = {
   },
 
   startGame(mode) {
+    AudioFx.unlock();
     this.cleanupSession();
     GameState.sessionId += 1;
     Object.assign(GameState, {
@@ -254,6 +270,8 @@ const Game = {
     DOM.status.textContent = 'SCAN: LIVE FEED → TARGET: --';
     this.updateLayoutMetrics();
     this.resetBinCounters();
+    this.resetRejectCounter();
+    this.showTutorial();
     this.updateUI();
     this.spawnPackage();
     this.startLoop();
@@ -269,7 +287,8 @@ const Game = {
     DOM.dropFeedback.textContent = '';
     DOM.sensorLine.classList.remove('alert');
     DOM.rejectChute.classList.remove('flash');
-    DOM.stage.classList.remove('flash-correct', 'flash-wrong', 'shake');
+    DOM.tutorialOverlay.classList.add('hidden');
+    DOM.stage.classList.remove('flash-correct', 'flash-wrong', 'shake', 'perfect-active', 'late-active');
   },
 
   startLoop() {
@@ -310,7 +329,11 @@ const Game = {
 
     GameState.packageX += GameState.packageSpeed * delta;
     const isNearDecision = GameState.packageX >= GameState.dropTriggerX - 115 && GameState.packageX <= GameState.missZoneX;
+    const isPerfectZone = GameState.packageX < GameState.dropTriggerX;
+    const isLateZone = GameState.packageX >= GameState.dropTriggerX && GameState.packageX < GameState.missZoneX;
     DOM.sensorLine.classList.toggle('alert', isNearDecision && !GameState.hasAnswered);
+    DOM.stage.classList.toggle('perfect-active', isPerfectZone && !GameState.hasAnswered);
+    DOM.stage.classList.toggle('late-active', isLateZone && !GameState.hasAnswered);
 
     if (!GameState.hasAnswered && !GameState.hasHintedSort && GameState.packageX >= GameState.dropTriggerX) {
       this.hintCorrectBin();
@@ -329,10 +352,13 @@ const Game = {
     GameState.packageY = this.lerp(GameState.dropStartY, GameState.dropEndY, eased) + arc;
 
     const rotate = this.lerp(0, GameState.dropRotation, eased);
-    if (GameState.currentPackage?.result === 'correct' && progress > 0.68) {
+    const isCorrectDrop = GameState.currentPackage?.result === 'correct';
+    if (isCorrectDrop && progress > 0.56) {
       DOM.packageBox.classList.add('receiving');
+      this.getBin(GameState.dropTarget)?.classList.add('receive');
     }
-    DOM.packageBox.style.transform = `translate3d(${GameState.packageX}px, ${GameState.packageY}px, 0) rotate(${rotate}deg) scale(${GameState.currentPackage?.result === 'correct' ? this.lerp(1, 0.58, eased) : 1})`;
+    const receiveScale = progress > 0.48 ? this.lerp(1, 0.34, eased) : this.lerp(1, 0.82, eased);
+    DOM.packageBox.style.transform = `translate3d(${GameState.packageX}px, ${GameState.packageY}px, 0) rotate(${rotate}deg) scale(${isCorrectDrop ? receiveScale : 1})`;
 
     if (progress >= 1 && !GameState.hasResolved) this.finishResolution();
   },
@@ -361,7 +387,7 @@ const Game = {
     DOM.packageDest.textContent = `${category.label} · ${variant.label} · Kode ${category.key}`;
     DOM.sensorLine.classList.remove('alert');
     DOM.rejectChute.classList.remove('flash');
-    DOM.stage.classList.remove('flash-correct', 'flash-wrong', 'shake');
+    DOM.stage.classList.remove('flash-correct', 'flash-wrong', 'shake', 'perfect-active', 'late-active');
     this.clearBinStates();
     this.renderPackage();
     DOM.status.textContent = `SCAN: ${code} → TARGET: ${category.label.toUpperCase()}`;
@@ -392,7 +418,8 @@ const Game = {
     GameState.dropStartY = GameState.packageY;
     DOM.sensorLine.classList.remove('alert');
     DOM.rejectChute.classList.remove('flash');
-    DOM.stage.classList.remove('flash-correct', 'flash-wrong', 'shake');
+    DOM.tutorialOverlay.classList.add('hidden');
+    DOM.stage.classList.remove('flash-correct', 'flash-wrong', 'shake', 'perfect-active', 'late-active');
 
     const endPoint = this.getDropEndpoint(result, destination);
     GameState.dropEndX = endPoint.x;
@@ -406,19 +433,21 @@ const Game = {
       this.markLane(destination, 'lane-glow');
       this.showFeedback(GameState.currentPackage.timing === 'perfect' ? 'PERFECT' : 'LATE', 'success');
       this.flashStage('correct');
-      AudioFx.success();
+      if (GameState.currentPackage.timing === 'perfect') AudioFx.successPerfect();
+      else AudioFx.successLate();
       this.createParticles('', '#34d399');
     } else if (result === 'wrong') {
       this.markBin(destination, 'wrong');
       this.showFeedback('WRONG BIN', 'fail');
       this.flashStage('wrong');
-      AudioFx.fail();
+      AudioFx.wrong();
       this.createParticles('', '#fb7185');
     } else {
       this.showFeedback('MISS', 'fail');
       DOM.rejectChute.classList.add('flash');
+      this.updateRejectCounter(GameState.timeoutCount + 1);
       this.flashStage('miss');
-      AudioFx.fail();
+      AudioFx.miss();
       this.createParticles('', '#fb7185');
     }
 
@@ -452,6 +481,7 @@ const Game = {
     } else {
       if (result === 'timeout') {
         GameState.timeoutCount += 1;
+        this.updateRejectCounter(GameState.timeoutCount);
         this.floatText('MISS', 'miss');
       } else {
         GameState.wrongCount += 1;
@@ -537,6 +567,10 @@ const Game = {
     DOM.sensorLine.style.left = `${GameState.dropTriggerX}px`;
     DOM.missZone.style.left = `${GameState.missZoneX}px`;
     DOM.missZone.style.right = 'auto';
+    DOM.perfectZone.style.left = `${GameState.conveyorStartX}px`;
+    DOM.perfectZone.style.width = `${Math.max(24, GameState.dropTriggerX - GameState.conveyorStartX)}px`;
+    DOM.lateZone.style.left = `${GameState.dropTriggerX}px`;
+    DOM.lateZone.style.width = `${Math.max(24, GameState.missZoneX - GameState.dropTriggerX)}px`;
 
     if (GameState.isRunning && GameState.currentPackage && !GameState.isDropping) {
       this.renderPackage();
@@ -685,7 +719,7 @@ const Game = {
   },
 
   clearBinStates() {
-    DOM.bins.forEach(bin => bin.classList.remove('active', 'correct', 'wrong', 'perfect', 'late', 'sort-hint'));
+    DOM.bins.forEach(bin => bin.classList.remove('active', 'correct', 'wrong', 'perfect', 'late', 'sort-hint', 'receive'));
     DOM.dropLanes.forEach(lane => lane.classList.remove('lane-glow'));
   },
 
@@ -703,8 +737,10 @@ const Game = {
   markBin(destination, className) {
     const bin = this.getBin(destination);
     if (!bin) return;
-    bin.classList.add(...className.split(' '), 'active');
-    TimeoutManager.set(() => bin.classList.remove(...className.split(' '), 'active'), 780, GameState.sessionId);
+    const classes = className.split(' ');
+    bin.classList.add(...classes, 'active');
+    if (classes.includes('correct')) bin.classList.add('receive');
+    TimeoutManager.set(() => bin.classList.remove(...classes, 'active', 'receive'), 780, GameState.sessionId);
   },
 
   getBin(destination) {
@@ -756,7 +792,7 @@ const Game = {
     const bin = this.getBin(destination);
     const counter = bin?.querySelector('.bin-count');
     if (counter) {
-      counter.textContent = GameState.binCounts[destination];
+      counter.textContent = `LOAD ${String(GameState.binCounts[destination]).padStart(2, '0')}`;
       counter.classList.remove('pop');
       void counter.offsetWidth;
       counter.classList.add('pop');
@@ -766,8 +802,23 @@ const Game = {
   resetBinCounters() {
     DOM.bins.forEach(bin => {
       const counter = bin.querySelector('.bin-count');
-      if (counter) counter.textContent = '0';
+      if (counter) counter.textContent = 'LOAD 00';
     });
+  },
+
+  updateRejectCounter(value = GameState.timeoutCount) {
+    if (DOM.rejectCount) DOM.rejectCount.textContent = `MISS ${String(value).padStart(2, '0')}`;
+  },
+
+  resetRejectCounter() {
+    this.updateRejectCounter(0);
+  },
+
+  showTutorial() {
+    if (GameState.tutorialShown || !DOM.tutorialOverlay) return;
+    GameState.tutorialShown = true;
+    DOM.tutorialOverlay.classList.remove('hidden');
+    TimeoutManager.set(() => DOM.tutorialOverlay.classList.add('hidden'), 5200, GameState.sessionId);
   },
 
   renderLives() {
